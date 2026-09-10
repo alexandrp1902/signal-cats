@@ -36,7 +36,7 @@ header,.footer{width:min(1280px,100%)}
 <main aria-busy="true" class="game" aria-label="Игра Приключения DOCS">
 <div id="asset-loading" role="status">SIGNAL CATS 1.1<br>Котик готовится к приключению…<noscript><br><br><span style="font-weight:normal;font-size:13px;line-height:1.5;color:#b9d8ee">Страница открыта в режиме предпросмотра без JavaScript — так делают Telegram, WhatsApp и «Файлы» на iPhone.<br>Откройте игру по ссылке в Safari или Chrome.</span></noscript></div>
 <canvas id="canvas" width="1280" height="720" aria-label="Игровой мир: кот DOCS в каске собирает рыбок">Для игры нужен браузер с поддержкой Canvas.</canvas>
-<div class="hud"><div class="hud-left"><div class="pill">🐟 <span id="count">0 / 60</span></div><div class="pill hearts" id="lives" aria-label="3 жизни">♥ ♥ ♥</div><div class="pill" id="timepill" aria-label="Время уровня">⏱ <span id="time">0:00</span></div></div><div class="hud-right"><div class="pill"><small>СЧЁТ</small><span id="score">0000</span></div><button class="icon" id="sound" aria-label="Выключить звук" title="Звук">♪</button><button class="icon" id="fullscreen" aria-label="Во весь экран" title="Во весь экран" hidden>⛶</button><button class="icon" id="pause" aria-label="Пауза" title="Пауза (Esc)">Ⅱ</button><button class="icon" id="restart" aria-label="Начать заново" title="Начать заново (R)">↻</button></div></div>
+<div class="hud"><div class="hud-left"><div class="pill">🐟 <span id="count">0 / 60</span></div><div class="pill hearts" id="lives" aria-label="3 жизни">♥ ♥ ♥</div><div class="pill" id="timepill" aria-label="Время уровня">⏱ <span id="time">0:00</span></div></div><div class="hud-right"><div class="pill"><small>СЧЁТ</small><span id="score">0000</span></div><button class="icon" id="sound" aria-label="Включить звук" aria-pressed="false" title="Звук">♩̸</button><button class="icon" id="fullscreen" aria-label="Во весь экран" title="Во весь экран" hidden>⛶</button><button class="icon" id="pause" aria-label="Пауза" title="Пауза (Esc)">Ⅱ</button><button class="icon" id="restart" aria-label="Начать заново" title="Начать заново (R)">↻</button></div></div>
 <div id="toast" class="toast" role="status"></div><div class="progress" aria-hidden="true"><div id="progress"></div></div>
 <div class="stick-zone" id="stickzone" aria-hidden="true"><div class="stick" id="stick"><span class="arr l">◀</span><span class="arr u">▲</span><span class="arr r">▶</span><div class="stick-knob" id="knob"></div></div></div>
 <div class="overlay" id="overlay"><section class="card"><div class="eyebrow" id="eyebrow">СТРОЙКА, ГДЕ ПРЯЧУТСЯ РЫБКИ</div><div class="badge" id="badge">🐟</div><h1 id="title">ПРИКЛЮЧЕНИЯ<br><span>DOCS</span></h1><p id="description">Собери все рыбки и доберись до конца уровня!</p><div class="choice" id="choice"><button data-age="0"><em>🦺</em><b>ДО 7 ЛЕТ</b><i>Сплошной настил, ни одной ямы и ни одного краба.</i></button><button data-age="1"><em>🦀</em><b>ОТ 7 ДО 10</b><i>Котлованы, ползающие крабы и третий этаж балок.</i></button><button data-age="2"><em>🐦</em><b>СТАРШЕ 10</b><i>Четыре этажа балок, внизу котлован, в небе — чайки.</i></button></div><button class="primary" id="play" hidden>ИГРАТЬ →</button><button class="ghost" id="change" hidden>← ДРУГАЯ СЛОЖНОСТЬ</button><div class="controls"><span class="kb"><kbd>←</kbd> <kbd>→</kbd> / <kbd>A</kbd> <kbd>D</kbd> — движение &nbsp; <kbd>SPACE</kbd> — прыжок<br><kbd>W</kbd> / <kbd>↑</kbd> — тоже прыжок · <kbd>R</kbd> — заново · <kbd>Esc</kbd> — пауза<br></span><span class="tap">Стик внизу экрана: влево и вправо — идти, вверх — прыжок.<br></span>Прыжок сверху на краба — и краб побеждён!</div></section></div>
@@ -133,13 +133,14 @@ const AGES=[
 // shelves over open air. Same-tier gaps stay <= 150 px, and every 100 px climb keeps its gap <= 100 px.
 {label:'СТАРШЕ 10',note:'Четыре этажа балок, внизу почти всюду котлован, а над ямами кружат чайки.',levels:[
  {name:'СТРОЙКА НАД КОТЛОВАНОМ',theme:SITE,spawn:{x:120,y:600},praise:'КОТЛОВАН ОСТАЛСЯ ПОЗАДИ!',check:{at:2600,x:2560,y:600},decor:[{k:'sign',x:205,text:'ТОЛЬКО ПО БАЛКАМ →'},{k:'flag',x:2555}],
-  platforms:[ground(0,520),ground(2540,420),ground(6040,360),
+  platforms:[ground(0,520),ground(2540,420),ground(6040,260),
    ledge(600,500,170),ledge(890,500,140),ledge(1130,400,140),ledge(1420,400,170),ledge(1670,300,140),ledge(1960,300,170),ledge(2210,200,140),ledge(2400,300,120),
    ledge(3040,500,140),ledge(3300,500,170),ledge(3540,400,140),ledge(3820,400,150),ledge(4070,300,140),ledge(4350,300,170),ledge(4600,200,140),ledge(4890,200,170),ledge(5140,300,150),ledge(5440,300,170),ledge(5740,400,150)],
   obstacles:[rect(300,550,62,50,'crate'),rect(2760,548,58,52,'barrel')],
   crabs:[[660,500,28],[1480,400,28],[2020,300,28],[2690,600,35],[3360,500,28],[4410,300,28],[4950,200,28],[5500,300,28]],
   gulls:[[830,480,80,22],[1345,380,90,22],[1885,280,100,22],[3240,480,80,22],[3750,380,100,22],[4280,280,90,22],[4815,180,100,22],[5365,280,90,22],[5675,380,80,22]],
-  finish:rect(6190,440,120,160)},
+  // Keep the finish beyond all three pickups on the last island, so landing there cannot end the level early.
+  finish:rect(6300,440,100,160)},
  {name:'ПРИЧАЛ НАД ВОДОЙ',theme:SEASIDE,spawn:{x:110,y:600},praise:'ВОДА ОСТАЛАСЬ ВНИЗУ!',check:{at:2450,x:2540,y:600},decor:[{k:'sign',x:205,text:'НЕ СМОТРИ ВНИЗ →'},{k:'flag',x:2510}],
   platforms:[ground(0,460),ground(2380,400),ground(6060,340),
    ledge(540,500,170),ledge(800,400,160),ledge(1080,400,180),ledge(1350,300,160),ledge(1630,300,160),ledge(1890,200,170),ledge(2140,300,140),
@@ -225,7 +226,7 @@ ui.choice.querySelectorAll('[data-age]').forEach(button=>button.addEventListener
 ui.change.addEventListener('click',showStart);
 document.getElementById('restart').addEventListener('click',restartLevel);ui.pause.addEventListener('click',togglePause);
 // AUDIO — generated locally, only initialized after a user gesture.
-let audio=null,soundOn=true;
+let audio=null,soundOn=false;
 // iOS 16.4+ lets a page ask for the media session directly. WebKit ignores it inside third-party iframes without
 // microphone access (the claude.ai viewer is one), so the silent channel below remains the fallback there.
 function unlockAudio(){try{if(navigator.audioSession&&navigator.audioSession.type!=='playback')navigator.audioSession.type='playback';}catch{}
@@ -536,7 +537,7 @@ window.CAT_SPRITES={"idle":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAH4AAA
  }
  tone=function(f,d=.12,type='sine',offset=0){if(!soundOn||!audio)return;buses();const t=audio.currentTime+offset;note(f,d,type==='sawtooth'?'triangle':type,t,.12,fxBus,f===520?850:f*.82);if(f>=660)note(f*2,d*.8,'sine',t,.035,fxBus,f*2);};
  ui.sound.addEventListener('click',()=>{if(master)master.gain.setTargetAtTime(soundOn?.7:0,audio.currentTime,.025);});
- ui.sound.setAttribute('aria-pressed','true');
+ ui.sound.setAttribute('aria-pressed',String(soundOn));
  const melody=[659,0,784,880,0,784,659,587,523,0,659,784,0,659,587,0,587,0,740,880,0,740,659,587,523,659,784,1047,880,784,659,0];
  setInterval(()=>{
   if(!audio||!master)return;
