@@ -198,7 +198,7 @@ function requestJump(){if(mode==='playing')player.buffer=PHYS.buffer;}
 window.addEventListener('keydown',e=>{if(controlKeys.includes(e.code))e.preventDefault();if(e.repeat)return;if(e.code==='KeyR'){restartLevel();return;}if(e.code==='Escape'){togglePause();return;}keys.add(e.code);if(jumpKeys.includes(e.code))requestJump();});
 window.addEventListener('keyup',e=>keys.delete(e.code));
 window.addEventListener('blur',()=>{clearInput();if(mode==='playing')togglePause();});
-document.addEventListener('visibilitychange',()=>{if(document.hidden){clearInput();if(mode==='playing')togglePause();if(keepalive)keepalive.pause();}});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){clearInput();if(mode==='playing')togglePause();dropKeepalive();}});
 // VIRTUAL STICK (1.1) — the only touch control: left/right walks with analog speed, pushing up jumps.
 // The zone is the lower half of the frame; a thumb that lands away from the resting base pulls the base under itself.
 const stick={axis:0,id:null,latched:false,cx:0,cy:0,R:48};
@@ -226,14 +226,23 @@ ui.change.addEventListener('click',showStart);
 document.getElementById('restart').addEventListener('click',restartLevel);ui.pause.addEventListener('click',togglePause);
 // AUDIO — generated locally, only initialized after a user gesture.
 let audio=null,soundOn=true;
-function unlockAudio(){try{if(!audio)audio=new(window.AudioContext||window.webkitAudioContext)();if(audio.state==='suspended')audio.resume().catch(()=>{});}catch{soundOn=false;}keepAudioSession();}
-// iOS keeps Web Audio in the "ambient" session: the silent switch mutes it and the volume buttons change the ringer,
-// not the game. A looping silent <audio> started on the same tap moves the session to "playback", where both work.
-// The file is seven 8-bit samples of silence at the context's own rate (the recipe unmute-ios-audio uses);
-// x-webkit-airplay=deny keeps it out of the Control Center media widget.
-function silentWav(rate){const b=new Uint8Array(51),v=new DataView(b.buffer),w=(o,t)=>{for(let i=0;i<t.length;i++)b[o+i]=t.charCodeAt(i);};w(0,'RIFF');v.setUint32(4,43,true);w(8,'WAVEfmt ');v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);v.setUint32(24,rate,true);v.setUint32(28,rate,true);v.setUint16(32,1,true);v.setUint16(34,8,true);w(36,'data');v.setUint32(40,7,true);b.fill(128,44);return 'data:audio/wav;base64,'+btoa(String.fromCharCode(...b));}
+// iOS 16.4+ lets a page ask for the media session directly. WebKit ignores it inside third-party iframes without
+// microphone access (the claude.ai viewer is one), so the silent channel below remains the fallback there.
+function unlockAudio(){try{if(navigator.audioSession&&navigator.audioSession.type!=='playback')navigator.audioSession.type='playback';}catch{}
+ try{if(!audio)audio=new(window.AudioContext||window.webkitAudioContext)();if(audio.state==='suspended'||audio.state==='interrupted')audio.resume().catch(()=>{});}catch{soundOn=false;}keepAudioSession();}
+// iOS plays Web Audio on the ringer channel: the silent switch mutes it and the volume buttons change the ringer,
+// not the game. A looping silent <audio> started from a tap moves playback onto the media channel. Method and MP3
+// from swevans/unmute (MIT). The MP3 must be high quality: iOS mixes Web Audio down to the html track's bitrate.
+const SILENCE='data:audio/mpeg;base64,//uQxAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAACcQCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA//////////////////////////////////////////////////////////////////8AAABhTEFNRTMuMTAwA8MAAAAAAAAAABQgJAUHQQAB9AAAAnGMHkkIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//sQxAADgnABGiAAQBCqgCRMAAgEAH///////////////7+n/9FTuQsQH//////2NG0jWUGlio5gLQTOtIoeR2WX////X4s9Atb/JRVCbBUpeRUq//////////////////9RUi0f2jn/+xDECgPCjAEQAABN4AAANIAAAAQVTEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVQ==';
 let keepalive=null;
-function keepAudioSession(){if(!keepalive){keepalive=document.createElement('audio');keepalive.setAttribute('x-webkit-airplay','deny');keepalive.preload='auto';keepalive.loop=true;keepalive.src=silentWav(audio?audio.sampleRate:44100);keepalive.load();}if(!soundOn){keepalive.pause();return;}const p=keepalive.play();if(p&&p.catch)p.catch(()=>{});}
+// Emptying src is what actually clears the iOS Now Playing controls; a failed play() leaves a dead element, so it is dropped too.
+function dropKeepalive(){if(!keepalive)return;keepalive.pause();keepalive.removeAttribute('src');keepalive.load();keepalive=null;}
+function keepAudioSession(){if(!soundOn||document.hidden){dropKeepalive();return;}
+ if(!keepalive){keepalive=document.createElement('audio');keepalive.setAttribute('x-webkit-airplay','deny');keepalive.disableRemotePlayback=true;keepalive.controls=false;keepalive.preload='auto';keepalive.loop=true;keepalive.src=SILENCE;keepalive.load();}
+ if(keepalive.paused){const p=keepalive.play();if(p&&p.then)p.then(()=>{},dropKeepalive);}}
+// iOS counts only these events as a gesture for media (a finger's pointerdown, which drives the stick, is not one),
+// so each of them re-arms the channel and wakes the context after a pause, a call or a trip to the home screen.
+for(const name of ['touchend','click','keydown','pointerup'])window.addEventListener(name,()=>{if(audio)unlockAudio();},{capture:true,passive:true});
 function tone(frequency,duration=.12,type='sine',delay=0){if(!soundOn||!audio)return;try{const oscillator=audio.createOscillator(),gain=audio.createGain(),t=audio.currentTime+delay;oscillator.type=type;oscillator.frequency.setValueAtTime(frequency,t);oscillator.frequency.exponentialRampToValueAtTime(frequency*.65,t+duration);gain.gain.setValueAtTime(.055,t);gain.gain.exponentialRampToValueAtTime(.001,t+duration);oscillator.connect(gain);gain.connect(audio.destination);oscillator.start(t);oscillator.stop(t+duration);oscillator.onended=()=>{oscillator.disconnect();gain.disconnect();};}catch{}}
 ui.sound.addEventListener('click',()=>{soundOn=!soundOn;unlockAudio();ui.sound.textContent=soundOn?'♪':'♩̸';ui.sound.setAttribute('aria-label',soundOn?'Выключить звук':'Включить звук');ui.sound.setAttribute('aria-pressed',String(soundOn));});
 // COLLISIONS
