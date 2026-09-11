@@ -617,7 +617,8 @@ window.CAT_SPRITES={"idle":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAH4AAA
   a.capeVelocity+=((capeTarget-a.capeAngle)*140-a.capeVelocity*18)*dt;a.capeAngle+=a.capeVelocity*dt;
   a.capePhase+=dt*(4.5+flow*10+fall*4);
   const accel=(player.vx-a.previousVx)/dt;a.previousVx=player.vx;
-  const lean=clamp(player.vx/PHYS.speed*.065+accel*player.facing*.000025,-.11,.13);
+  // Lean is measured in the cat's own frame (positive = forward), so both running directions tilt the body ahead of the feet.
+  const lean=clamp(Math.abs(player.vx)/PHYS.speed*.14+accel*player.facing*.00002,-.05,.19);
   a.lean=smooth(a.lean,lean,1-Math.exp(-12*dt));
   const lastStep=Math.floor(a.stride/Math.PI);
   if(player.grounded)a.stride+=Math.abs(player.x-before-(player.carry||0))/108*Math.PI*2;
