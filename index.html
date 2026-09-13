@@ -16,14 +16,14 @@
 <style id="presentation-styles">
 body{background:radial-gradient(ellipse at 20% 0%,#164562 0,transparent 55%),radial-gradient(ellipse at 100% 90%,#133959,transparent 55%),#081624;color:#eaf7ff;padding:24px}
 header,.footer{width:min(1280px,100%)}
-.brand{color:#eaf7ff;letter-spacing:2px;font-size:19px}.brand span{color:#32bdff}.edition{color:#90b5cb;letter-spacing:2.5px}
+.brand{color:#ECF0F3;letter-spacing:2px;font-size:19px}.brand span{color:#00D1FF}.edition{color:#8EDDFF;letter-spacing:2.5px}
 .game{border:1px solid #90d8ff59;border-radius:24px;box-shadow:0 28px 90px #0008,0 0 70px #009dff10}
 .pill,.icon{background:#102a40e8;border:1px solid #98d9ff40;color:#f3faff;box-shadow:0 4px 16px #08233526;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
 .pill small{color:#86b4cf}.hearts{color:#ff968c}.icon:hover{background:#214962}.hud{inset:20px 22px auto}.pill{font-size:17px}.icon{border-radius:14px}
 .overlay{background:linear-gradient(90deg,#071b323b,#0b263117);-webkit-backdrop-filter:blur(1px);backdrop-filter:blur(1px)}
 .card{background:linear-gradient(150deg,#fffffffa,#eaf6fff5);border:1px solid #fff;border-radius:28px;box-shadow:0 24px 90px #09284355;padding:26px 32px}
-.eyebrow{color:#267598;font-size:10px}.badge{height:6px;font-size:0;margin-bottom:10px}h1{font-size:46px;color:#102e46}h1 span{color:#009af0}#description{color:#52748b;font-size:14px;margin:14px auto 18px}
-.choice button{background:#ffffffc9;border:1px solid #c6e1ef;border-bottom:3px solid #bad8e9;padding:12px 16px}.choice button:hover{background:#e4f5ff;border-color:#22b4ff;box-shadow:0 4px 18px #179eee18}.choice i{color:#64859a}.primary{background:linear-gradient(135deg,#00b7ff,#087ce3)}.controls{color:#66869b;margin-top:16px}.footer{color:#7199b2}.progress{height:4px;background:#0c294a4d}.progress div{background:linear-gradient(90deg,#00b7ff,#81eaff);box-shadow:0 0 14px #00b7ff}.toast{background:#102e46ed;color:#e8faff;border:1px solid #83d5ff66}
+.eyebrow{color:#0675D7;font-size:10px}.badge{height:6px;font-size:0;margin-bottom:10px}h1{font-size:46px;color:#102538}h1 span{color:#0695D7}#description{color:#52748b;font-size:14px;margin:14px auto 18px}
+.choice button{background:#ffffffc9;border:1px solid #c6e1ef;border-bottom:3px solid #bad8e9;padding:12px 16px}.choice button:hover{background:#e4f5ff;border-color:#00D1FF;box-shadow:0 4px 18px #0695D718}.choice i{color:#64859a}.primary{background:linear-gradient(135deg,#00D1FF,#0695D7)}.controls{color:#66869b;margin-top:16px}.footer{color:#7199b2}.progress{height:4px;background:#1025384d}.progress div{background:linear-gradient(90deg,#0695D7,#00D1FF);box-shadow:0 0 14px #00D1FF}.toast{background:#102538ed;color:#ECF0F3;border:1px solid #8EDDFF66}
 @media(max-width:700px){body{padding:8px}.brand{font-size:13px}.edition{font-size:7px;letter-spacing:1px}.hud{inset:8px 10px auto}.pill{font-size:12px}.card{padding:12px 20px}h1{font-size:27px}#description{font-size:11px;margin:8px 0 10px}.choice button{padding:7px 11px}.controls{margin-top:8px}}
 .card{max-height:calc(100% - 12px);overflow:auto}
 @media(max-height:500px) and (orientation:landscape){body{padding:0}.card{padding:12px 25px}h1{font-size:27px}#description{font-size:11px;margin:6px auto 8px}.choice button{padding:6px 12px}.controls{margin-top:8px;font-size:9px;line-height:1.6}.eyebrow{margin-bottom:6px}.hud{inset:8px 10px auto}.pill{font-size:12px;padding:6px 9px}.icon{width:32px;height:32px}}
@@ -44,12 +44,12 @@ header,.footer{width:min(1280px,100%)}
 .card.select .controls{margin-top:10px}
 @media(max-width:700px){.card.select{max-width:96%;padding:10px 12px}.choice.levels{grid-template-columns:repeat(4,1fr);gap:5px}.choice.levels .tile{min-height:50px;padding:5px 2px 4px;border-radius:10px}.choice.levels .tile b{font-size:15px}.choice.levels .tile span{font-size:8px}.choice.levels .tile i{font-size:7px}}
 @media(max-height:500px) and (orientation:landscape){.card.select{max-width:96%;width:880px;padding:8px 14px}.card.select h1{font-size:22px}.card.select #description{display:none}.choice.levels{grid-template-columns:repeat(10,1fr);gap:5px;max-width:none;margin-bottom:6px}.choice.levels .tile{min-height:48px;padding:4px 2px}.choice.levels .tile b{font-size:15px}.choice.levels .tile span{font-size:7.5px}.choice.levels .tile i{font-size:7px}.card.select .controls{display:none}}
-#asset-loading{position:absolute;inset:0;z-index:20;display:grid;place-items:center;background:#102e46;color:#eaf7ff;font-weight:bold;letter-spacing:.5px;text-align:center;padding:24px}
+#asset-loading{position:absolute;inset:0;z-index:20;display:grid;place-items:center;background:#102538;color:#ECF0F3;font-weight:bold;letter-spacing:.5px;text-align:center;padding:24px}
 
 /* 1.3: separate two-thumb mobile controls — movement on the right, jump on the left. */
 .game.touch .stick{left:calc(75% - var(--size)/2);right:auto}
-.jump-button{--size:100px;position:absolute;left:calc(25% - var(--size)/2);bottom:calc(40px + env(safe-area-inset-bottom));width:var(--size);height:var(--size);border:1px solid #98d9ff80;border-bottom:5px solid #0874b8;border-radius:50%;background:linear-gradient(145deg,#25c5ffdd,#087ce3dd);color:#fff;box-shadow:0 8px 22px #06233c66,0 0 0 5px #bdeaff20;font:900 30px/1 Trebuchet MS,Arial,sans-serif;letter-spacing:2px;text-shadow:0 1px 2px #064e7e;cursor:pointer;touch-action:none;-webkit-user-select:none;user-select:none}
-.jump-button.live{transform:translateY(4px) scale(.96);border-bottom-width:2px;background:linear-gradient(145deg,#6cdbff,#1194ed);box-shadow:0 3px 12px #06233c70,0 0 0 6px #7cddff35}
+.jump-button{--size:100px;position:absolute;left:calc(25% - var(--size)/2);bottom:calc(40px + env(safe-area-inset-bottom));width:var(--size);height:var(--size);border:1px solid #8EDDFF80;border-bottom:5px solid #0675D7;border-radius:50%;background:linear-gradient(145deg,#00D1FFdd,#0695D7dd);color:#fff;box-shadow:0 8px 22px #10253866,0 0 0 5px #8EDDFF20;font:900 30px/1 Trebuchet MS,Arial,sans-serif;letter-spacing:2px;text-shadow:0 1px 2px #102538;cursor:pointer;touch-action:none;-webkit-user-select:none;user-select:none}
+.jump-button.live{transform:translateY(4px) scale(.96);border-bottom-width:2px;background:linear-gradient(145deg,#8EDDFF,#0695D7);box-shadow:0 3px 12px #10253870,0 0 0 6px #00D1FF35}
 @media(max-width:700px){.game.touch .stick{left:calc(75% - var(--size)/2);right:auto}.jump-button{--size:76px;left:calc(25% - var(--size)/2);bottom:calc(30px + env(safe-area-inset-bottom));font-size:23px}}
 @media (orientation:portrait){body.touch .stick{left:calc(75% - var(--size)/2);right:auto}body.touch .jump-button{--size:92px;left:calc(25% - var(--size)/2);bottom:calc(24px + env(safe-area-inset-bottom));font-size:28px}}
 </style>
@@ -71,6 +71,7 @@ header,.footer{width:min(1280px,100%)}
 let W=1280;const H=720,WORLD=6400,GROUND=600,STEP=1/120;
 const PHYS={speed:335,acceleration:1900,brake:2300,gravity:1850,jump:740,fall:1000,coyote:.12,buffer:.14};
 const canvas=document.getElementById('canvas'),ctx=canvas.getContext('2d');
+const BRAND={dark:'#102538',blue:'#0695D7',cyan:'#00D1FF',white:'#FFFFFF',gray:'#ECF0F3',red:'#FF4758',green:'#4FCDA6'},brandArt={white:null,dark:null,markWhite:null,markDark:null};
 // Safari before 16 has no roundRect; the arcTo path below is what the native call draws for a single radius.
 if(!ctx.roundRect)CanvasRenderingContext2D.prototype.roundRect=function(x,y,w,h,r){r=Math.max(0,Math.min(Array.isArray(r)?r[0]:r,w/2,h/2));this.moveTo(x+r,y);this.arcTo(x+w,y,x+w,y+h,r);this.arcTo(x+w,y+h,x,y+h,r);this.arcTo(x,y+h,x,y,r);this.arcTo(x,y,x+w,y,r);this.closePath();};
 const ui=Object.fromEntries(['count','lives','score','time','progress','overlay','title','description','play','badge','eyebrow','toast','sound','pause','choice','change','edition','tagline','lvl'].map(id=>[id,document.getElementById(id)]));
@@ -94,8 +95,8 @@ const rect=(x,y,w,h,kind='platform')=>({x,y,w,h,kind});
 const fmtTime=t=>`${Math.floor(t/60)}:${String(Math.floor(t%60)).padStart(2,'0')}`;
 // THEMES — palette plus a background painter per level. `haze` is the three-stop gradient the pits are filled with.
 // Declared before LEVELS on purpose: the table references them, and a const in the temporal dead zone would throw at load.
-const SITE={bg:drawSite,plant:coneProp,dirt:'#c2a179',seam:'#ad8b63',grass:'#8f9aa5',grassTop:'#a9b4bf',tuft:'#8f9aa5',pebble:'#d6bd99',sprig:'#7d8892',ledge:'#2f4560',ledgeTop:'#3d5a7d',ledgeLip:'#f0b429',plank:'#f0b429',flag:'#f0b429',plaque:'#fff6e0',ink:'#2f4560',signBg:'#f7d774',signInk:'#3a4b63',haze:['#3a2f2400','#4a3a2a38','#2c2119a8']};
-const SEASIDE={bg:drawSeaside,plant:bollard,dirt:'#9a7350',seam:'#84603f',grass:'#b98a5c',grassTop:'#d2a271',tuft:'#a97e55',pebble:'#c9a173',sprig:'#8a99a8',ledge:'#7d5b3d',ledgeTop:'#a37a4f',ledgeLip:'#e0b36b',plank:'#6f4f34',flag:'#ff8a4c',plaque:'#fff1dd',ink:'#6a4630',signBg:'#ffeccd',signInk:'#7a5236',haze:['#1f5a7500','#1f5a7538','#0e3a52a8']};
+const SITE={bg:drawSite,tint:'#FFFFFF66',plant:coneProp,dirt:'#c2a179',seam:'#ad8b63',grass:'#8f9aa5',grassTop:'#a9b4bf',tuft:'#8f9aa5',pebble:'#d6bd99',sprig:'#7d8892',ledge:'#2f4560',ledgeTop:'#3d5a7d',ledgeLip:'#f0b429',plank:'#f0b429',flag:'#f0b429',plaque:'#fff6e0',ink:'#2f4560',signBg:'#f7d774',signInk:'#3a4b63',haze:['#3a2f2400','#4a3a2a38','#2c2119a8']};
+const SEASIDE={bg:drawSeaside,tint:'#FFFFFF66',plant:bollard,dirt:'#9a7350',seam:'#84603f',grass:'#b98a5c',grassTop:'#d2a271',tuft:'#a97e55',pebble:'#c9a173',sprig:'#8a99a8',ledge:'#7d5b3d',ledgeTop:'#a37a4f',ledgeLip:'#e0b36b',plank:'#6f4f34',flag:'#ff8a4c',plaque:'#fff1dd',ink:'#6a4630',signBg:'#ffeccd',signInk:'#7a5236',haze:['#1f5a7500','#1f5a7538','#0e3a52a8']};
 // LEVEL HELPERS — ground() lays a walkable floor segment, ledge() a 28 px shelf. Shelves sit exactly 100 px apart,
 // well inside the ~148 px the jump reaches, so a step up is always a hop and never a leap of faith.
 const ground=(x,w)=>rect(x,GROUND,w,160,'ground');
@@ -125,21 +126,24 @@ function clearFinishZone(seeds,platforms,obstacles,finish){const edge=finish.x-1
    spots.push([x,y]);}}
  if(spots.length<moving.length)throw Error('Not enough safe fish spots before finish');
  moving.forEach((index,i)=>{out[index]=spots[i];});return out;}
+function addFinishChallenge(seeds,spots){const out=seeds.map(p=>[...p]);spots.forEach((spot,i)=>{out[out.length-spots.length+i]=[...spot];});return out;}
 // COURSE BUILDER (1.2) — the new levels are written as a left-to-right list of pieces instead of absolute coordinates.
 // A cursor sits at the right edge of the last surface, and every piece that adds a surface takes the gap before it first,
 // so each jump in a table is stated by its own gap. The output has exactly the shape of the hand-written 1.1 tables.
 //  ['F',gap,w]  floor island ('rest' runs it to the end of the world)          ['S',gap,y,w] shelf       ['C',gap,y,w] crumbling plank
 //  ['M',gap,y,w,dx,dy,period,phase] lift                    ['U',off,y,w] bonus shelf over the last floor/shelf the cursor stepped on (no cursor move)
-//  ['o',off,kind] obstacle, ['c',off,range] walker, ['r',off,range] robot — all on the most recent surface
+//  ['o',off,kind] obstacle, ['c',off,range] walker, ['r',off,range] robot, ['x',off] untouchable cactus — all on the most recent surface
 //  ['g',off,y,range,bob] flier, ['d',off,y,range,bob] drone — x relative to the most recent surface, y absolute
 //  ['w',off?,range?] walker, centred on the most recent surface by default
-//  ['G',y,range,bob] flier, ['D',y,range,bob] drone — patrol over the preceding gap, extended twice as far to the right
+//  ['G',y,range,bob] flier, ['D',y,range,bob] drone — patrol over the preceding gap, extended threefold to the right
 //  ['K',off]    checkpoint and its flag on the most recent (floor) surface
 const PROP={barrel:[58,52],crate:[62,50],cone:[66,55],pipe:[74,50]};
-// Keep the old dangerous left edge, but double the patrol and move its extra length to the landing side.
-const rightFlight=list=>list.map(([x,y,r,bob])=>[x+r,y,r*2,bob]);
+// Keep the dangerous left edge, then send a gap flier far onto the landing side. Starting at that edge and
+// departing to the right gives the player a long, readable opening instead of a bird that immediately turns back.
+const gapFlight=([x,y,r,bob])=>[x+r*2,y,r*3,bob,true];
+const rightFlight=list=>list.map(gapFlight);
 function course(meta,pieces){let x=0,ref=null,base=null,gap=0;
- const L={spawn:{x:120,y:600},platforms:[],obstacles:[],crabs:[],robots:[],gulls:[],drones:[],checks:[],decor:[{k:'sign',x:205,text:meta.sign}],...meta};
+ const L={spawn:{x:120,y:600},platforms:[],obstacles:[],crabs:[],robots:[],gulls:[],drones:[],cacti:[],checks:[],decor:[{k:'sign',x:205,text:meta.sign}],...meta};
  const put=(s,move=true)=>{L.platforms.push(s);ref=s;if(move){x=s.x+s.w;base=s;}};
  const walker=(list,off,r)=>list.push([Math.round(ref.x+(off??ref.w/2)),ref.y,r??Math.max(20,Math.round(ref.w/2-32))]);
  for(const [k,...a] of pieces){
@@ -152,9 +156,10 @@ function course(meta,pieces){let x=0,ref=null,base=null,gap=0;
   else if(k==='o'){const [w,h]=PROP[a[1]];L.obstacles.push(rect(ref.x+a[0],ref.y-h,w,h,a[1]));}
   else if(k==='c'||k==='w')walker(L.crabs,a[0],a[1]);
   else if(k==='r')walker(L.robots,a[0],a[1]);
-  else if(k==='G'||k==='D'){const r=a[1],cx=Math.round(ref.x-gap/2);(k==='G'?L.gulls:L.drones).push([cx+r,a[0],r*2,a[2]]);}
+  else if(k==='G'||k==='D'){const r=a[1],cx=Math.round(ref.x-gap/2);(k==='G'?L.gulls:L.drones).push(gapFlight([cx,a[0],r,a[2]]));}
   else if(k==='g')L.gulls.push([ref.x+a[0],a[1],a[2],a[3]]);
   else if(k==='d')L.drones.push([ref.x+a[0],a[1],a[2],a[3]]);
+  else if(k==='x')L.cacti.push([ref.x+a[0],ref.y]);
   else if(k==='K'){const cx=ref.x+a[0];L.checks.push({at:cx+30,x:cx,y:ref.y});L.decor.push({k:'flag',x:cx-3});}
   else throw Error(`${meta.name}: unknown piece ${k}`);}
  for(const s of L.platforms)if(s.x+s.w>WORLD)throw Error(`${meta.name}: a ${s.kind} runs to ${s.x+s.w}`);
@@ -203,29 +208,29 @@ const DESERT=place({dirt:'#d8ae6e',seam:'#c49a5c',grass:'#e8c282',grassTop:'#f4d
 const BRIDGE=place({...SEASIDE,plant:bollard,flag:'#d0503f'},
  {sky:['#8ccaf0','#e2f2fb'],sun:DAY_SUN,clouds:true,layers:[
   {k:'skyline',base:470,h:190,step:140,par:.08,c:'#a9bccb',c2:'#c7d6e1'},{k:'water',base:470,c:'#6fa9c6',c2:'#2f6f92'},{k:'cables',base:600,h:330,step:700,par:.35,c:'#d0503f',c2:'#b8453a'}]});
-const METRO=place({dirt:'#6f7c88',seam:'#5d6873',grass:'#c8ced4',grassTop:'#e5e9ec',tuft:'#b3bac1',pebble:'#8a949d',sprig:'#7a848d',ledgeLip:'#f0d040',robo:true,drone:true,flag:'#f0d040',haze:['#10151b00','#10151b48','#070a0eb8']},
+const METRO=place({tint:'#10253866',dirt:'#6f7c88',seam:'#5d6873',grass:'#c8ced4',grassTop:'#e5e9ec',tuft:'#b3bac1',pebble:'#8a949d',sprig:'#7a848d',ledgeLip:'#f0d040',robo:true,drone:true,flag:'#f0d040',haze:['#10151b00','#10151b48','#070a0eb8']},
  {sky:['#5d6f82','#7d8ea0'],fx:{k:'dust',n:12,c:'#ffffff30',vy:6,r:1.6},layers:[
   {k:'arches',base:600,h:330,step:420,par:.5,c:'#8fa3b5',c2:'#4d5d6e',tile:'#a7b8c7'},{k:'posts',base:600,h:260,step:420,off:210,par:.5,c:'#3e4c5a',c2:'#ffe9a8'}]});
 const TOWER=place({robo:true,flag:'#ff8a4c',gull:['#8a93a3','#a3abb9','#b9c0cc','#9aa3b2','#4a4f5a','#e0a050']},
  {sky:['#f39a5b','#ffd29a','#ffe9c9'],sun:{x:900,y:260,r:70,c:['#ffcf8a','#ffe6b8'],glow:'#ffd9a066'},layers:[
   {k:'skyline',base:600,h:330,step:170,par:.12,c:'#b58f86',c2:'#ffe39a'},{k:'cranes',base:600,s:1,step:640,par:.3,c:'#e8a93c',c2:'#f5c25e'},{k:'scaffold',base:606,step:520,par:.5,c:'#8a7a70'}]});
-const NIGHTSITE=place({dirt:'#a88d6c',seam:'#927656',grass:'#7e8995',grassTop:'#98a3ae',tuft:'#7e8995',robo:true,drone:true,haze:['#0a122000','#0a122048','#050a14b8']},
+const NIGHTSITE=place({tint:'#10253866',dirt:'#a88d6c',seam:'#927656',grass:'#7e8995',grassTop:'#98a3ae',tuft:'#7e8995',robo:true,drone:true,haze:['#0a122000','#0a122048','#050a14b8']},
  {sky:['#3e5a8f','#5f78a8','#8397bf'],stars:40,sun:{x:1000,y:120,r:44,c:['#f4f1dc','#fffbe8'],moon:'#41609a',glow:'#fff8d833'},layers:[
   {k:'skyline',base:600,h:300,step:160,par:.12,c:'#2f4468',c2:'#ffd86b'},{k:'cranes',base:600,s:1,step:700,par:.3,c:'#5c6f8f',c2:'#7c8fb0',lights:true},
   {k:'posts',base:600,h:230,step:560,par:.55,c:'#4a5670',c2:'#fffbe0',beam:'#fff6c01c'}]});
-const AQUARIUM=place({dirt:'#d8c08c',seam:'#c4aa76',grass:'#e8d6a4',grassTop:'#f4e6bc',tuft:'#d4be8a',pebble:'#b9a070',sprig:'#2f8f6a',plant:coral,drone:true,flag:'#ff8a7a',haze:['#0a3a4a00','#0a3a4a48','#04222eb8']},
+const AQUARIUM=place({tint:'#10253852',dirt:'#d8c08c',seam:'#c4aa76',grass:'#e8d6a4',grassTop:'#f4e6bc',tuft:'#d4be8a',pebble:'#b9a070',sprig:'#2f8f6a',plant:coral,drone:true,flag:'#ff8a7a',haze:['#0a3a4a00','#0a3a4a48','#04222eb8']},
  {sky:['#2f8fa8','#56b6c6','#86d3d6'],fx:{k:'bubbles',n:26,c:'#e6fbffa0',vy:30},layers:[
   {k:'fishes',base:420,step:260,par:.15,c:'#1f6f86'},{k:'kelp',base:600,h:260,step:130,par:.35,c:'#2f8f6a'},{k:'scaffold',base:606,step:600,par:.55,c:'#9fd6e0'}]});
-const VOLCANO=place({dirt:'#5b4a46',seam:'#4a3b38',grass:'#6d5c56',grassTop:'#86746c',tuft:'#5e4f4a',pebble:'#8a6a5a',sprig:'#ff8a3c',plant:rockProp,robo:true,drone:true,flag:'#ff8a3c',haze:['#ff5a1a00','#ff6a2a40','#c83c10b0']},
+const VOLCANO=place({tint:'#301A2866',dirt:'#5b4a46',seam:'#4a3b38',grass:'#6d5c56',grassTop:'#86746c',tuft:'#5e4f4a',pebble:'#8a6a5a',sprig:'#ff8a3c',plant:rockProp,robo:true,drone:true,flag:'#ff8a3c',haze:['#ff5a1a00','#ff6a2a40','#c83c10b0']},
  {sky:['#6b3a3a','#a0503a','#e0864a'],fx:{k:'embers',n:26,c:'#ffae4a',vy:35,r:2},layers:[
   {k:'volcano',base:600,h:330,step:1500,off:700,par:.12,c:'#4a3434'},{k:'columns',base:600,h:240,step:460,par:.35,c:'#4d4448',c2:'#6b6064'},{k:'rocks',base:600,step:360,par:.6,c:'#5a4d4f',c2:'#6d5f61'}]});
-const POLAR=place({dirt:'#c9d9e6',seam:'#b4c7d6',grass:'#eef6fb',grassTop:'#ffffff',tuft:'#dce9f2',pebble:'#aebfcc',sprig:'#8ea3b3',plant:rockProp,ice:true,robo:true,drone:true,flag:'#ff8a4c',haze:['#0a1a3000','#0a1a3048','#050e20b8']},
+const POLAR=place({tint:'#10253866',dirt:'#c9d9e6',seam:'#b4c7d6',grass:'#eef6fb',grassTop:'#ffffff',tuft:'#dce9f2',pebble:'#aebfcc',sprig:'#8ea3b3',plant:rockProp,ice:true,robo:true,drone:true,flag:'#ff8a4c',haze:['#0a1a3000','#0a1a3048','#050e20b8']},
  {sky:['#3e5a8f','#4f78a6','#86b5d0'],stars:30,fx:{k:'snow',n:30,c:'#ffffffc0',vx:14,vy:34,r:2.2},layers:[
   {k:'aurora',base:180,pal:['#5dffb040','#8a7dff30']},{k:'peaks',base:560,h:170,step:420,par:.15,c:'#dff1fb',c2:'#b5d9ee'},{k:'domes',base:600,h:70,step:620,par:.4,c:'#e8eef3',c2:'#9aa9b6'}]});
-const OBSERVATORY=place({dirt:'#7a6a80',seam:'#665870',grass:'#9a8aa6',grassTop:'#b8a8c4',tuft:'#8a7a96',pebble:'#a898b4',sprig:'#6a5a76',plant:rockProp,robo:true,drone:true,flag:'#ffd34d',haze:['#1a102a00','#1a102a48','#0c0618b8']},
+const OBSERVATORY=place({tint:'#20152F66',dirt:'#7a6a80',seam:'#665870',grass:'#9a8aa6',grassTop:'#b8a8c4',tuft:'#8a7a96',pebble:'#a898b4',sprig:'#6a5a76',plant:rockProp,robo:true,drone:true,flag:'#ffd34d',haze:['#1a102a00','#1a102a48','#0c0618b8']},
  {sky:['#4b3f7a','#7a5fa0','#c490b8'],stars:36,layers:[
   {k:'peaks',base:600,h:260,step:560,par:.12,c:'#5a4d7d',snow:'#d8d0f0'},{k:'domes',base:600,h:80,step:900,par:.35,c:'#e6e2f0',c2:'#8a84a0',slit:'#2e2a45'},{k:'rocks',base:600,step:380,par:.6,c:'#6a5f7d',c2:'#7d7290'}]});
-const COSMODROME=place({dirt:'#6d6a78',seam:'#5b5866',grass:'#8a879a',grassTop:'#a6a3b6',tuft:'#7a778a',pebble:'#9a97aa',sprig:'#5f5c70',plant:rockProp,robo:true,drone:true,flag:'#e8574a',haze:['#0a0a2000','#0a0a2048','#040414b8']},
+const COSMODROME=place({tint:'#0A102866',dirt:'#6d6a78',seam:'#5b5866',grass:'#8a879a',grassTop:'#a6a3b6',tuft:'#7a778a',pebble:'#9a97aa',sprig:'#5f5c70',plant:rockProp,robo:true,drone:true,flag:'#e8574a',haze:['#0a0a2000','#0a0a2048','#040414b8']},
  {sky:['#27365e','#3e5a8f','#6a7fae'],stars:50,layers:[
   {k:'planet',x:900,y:170,r:70,par:.02,c:'#e8a86a',c2:'#f4c890',ring:'#f4dcb080'},{k:'hills',base:560,h:60,step:500,par:.15,c:'#4d5a78'},
   {k:'rocket',base:600,h:260,step:2000,off:600,par:.3,c:'#8a94a8',c2:'#c0c8d6'},{k:'fence',base:600,h:50,step:110,par:.6,c:'#7a869c'}]});
@@ -274,12 +279,12 @@ const COURSES={
   ['F',155,800],['D',410,40,10],['o',250,'barrel'],['r',550,100],
   ['M',90,500,140,0,100,4,Math.PI],['F',90,700],['r',350,100],
   ['C',110,600,140],['F',110,'rest']]),
- 11:course({name:'ПУСТЫНЯ',short:'ПУСТЫНЯ',hint:'Два пролёта над песком — только по балкам.',theme:DESERT,praise:'ОАЗИС НАЙДЕН!',sign:'ЧЕРЕЗ ПУСТЫНЮ →'},[
-  ['F',0,1000],['o',450,'crate'],['c',750,90],
+ 11:course({name:'ПУСТЫНЯ',short:'ПУСТЫНЯ',hint:'Кактус нельзя победить прыжком сверху — только перепрыгнуть!',theme:DESERT,praise:'ОАЗИС НАЙДЕН!',sign:'ЧЕРЕЗ ПУСТЫНЮ →'},[
+  ['F',0,1000],['o',450,'crate'],['x',680],
   ['S',100,500,170],['S',150,500,160],['G',480,50,16],['S',100,400,160],['S',150,400,150],['G',380,50,16],['w',75,30],['S',100,300,160],['w',80,30],
-  ['F',160,1000],['K',250],['c',550,90],['o',800,'barrel'],
+  ['F',160,1000],['K',250],['c',550,90],['o',650,'barrel'],['x',820],
   ['S',100,500,160],['C',140,500,140],['G',480,50,16],['S',100,400,150],['w',75,30],['M',100,400,140,0,100,4,0],['C',90,300,140],
-  ['F',160,'rest'],['c',300,100],['o',600,'cone'],['c',900,100]]),
+  ['F',160,'rest'],['c',300,100],['o',600,'cone'],['c',900,100],['x',1080]]),
  13:course({name:'ТОННЕЛЬ МЕТРО',short:'МЕТРО',hint:'Балки под сводами, роботы и дроны.',theme:METRO,praise:'ПОЕЗД МОЖЕТ ЕХАТЬ!',sign:'В ТОННЕЛЬ →'},[
   ['F',0,560],['o',250,'pipe'],
   ['S',100,500,170],['w',85,28],['S',140,500,150],['G',480,50,16],['S',100,400,150],['S',140,400,160],['G',380,50,16],['w',80,28],
@@ -328,7 +333,7 @@ const COURSES={
   ['F',180,240],['K',80],['c',180,30],
   ['S',110,500,120],['G',520,40,14],['w'],['C',140,500,110],['G',480,60,16],['M',170,500,110,100,0,5,1.57],
   ['F',160,'rest']]),
- 19:course({name:'ОБСЕРВАТОРИЯ',short:'ТЕЛЕСКОП',hint:'Прыжки с лифта на лифт под звёздами.',theme:OBSERVATORY,praise:'ЗВЁЗДЫ ТАК БЛИЗКО!',sign:'К ТЕЛЕСКОПУ →',speeds:FASTER},[
+ 19:course({name:'ОБСЕРВАТОРИЯ',short:'ТЕЛЕСКОП',hint:'Лифты под звёздами и цепочка прыжков по квадрокоптерам.',theme:OBSERVATORY,praise:'ЗВЁЗДЫ ТАК БЛИЗКО!',sign:'К ТЕЛЕСКОПУ →',speeds:FASTER},[
   ['F',0,340],
   ['S',110,500,110],['w'],['C',130,500,110],['G',480,55,16],['S',110,400,110],['w'],['S',185,400,110],['G',380,75,16],
   ['C',110,300,110],['S',125,300,110],['w'],['M',170,300,110,0,100,4,0],['M',150,300,110,0,100,4,Math.PI],
@@ -336,8 +341,8 @@ const COURSES={
   ['S',110,500,110],['G',520,40,14],['w'],['C',140,500,100],['G',480,60,16],['C',130,500,100],['S',110,400,110],['w'],
   ['M',170,400,100,100,0,5,0],['S',170,400,110],['w'],['C',110,300,100],['S',130,300,110],['w'],['S',185,300,110],['G',280,75,16],
   ['F',185,200],['K',60],['c',150,20],
-  ['S',110,500,110],['G',520,40,14],['w'],['C',140,500,100],['G',480,60,16],['M',170,500,100,100,0,5,1.57],
-  ['F',160,'rest']]),
+  // The final 760 px gap cannot be cleared directly or from the third drone: all four form a reliable bounce chain.
+  ['F',760,'rest'],['d',-625,500,8,4],['d',-485,500,8,4],['d',-345,500,8,4],['d',-170,500,8,4]]),
  20:course({name:'КОСМОДРОМ',short:'КОСМОДРОМ',hint:'Самый трудный уровень: всё сразу.',theme:COSMODROME,praise:'РАКЕТА СТАРТУЕТ!',sign:'НА СТАРТ →',speeds:FASTER},[
   ['F',0,300],
   ['S',110,500,110],['w'],['C',130,500,100],['G',480,55,16],['C',120,500,100],['S',110,400,110],['w'],['S',190,400,110],['G',380,80,16],
@@ -374,9 +379,8 @@ const LEVELS=[
  // 6
  COURSES[6],
  // 7
- {name:'КАРЬЕР',short:'КАРЬЕР',hint:'Платформы над котлованами, роботы и третий этаж балок.',theme:QUARRY,spawn:{x:120,y:600},praise:'КАРЬЕР ОСТАЛСЯ ПОЗАДИ!',checks:[{at:2670,x:2640,y:600}],decor:[{k:'sign',x:205,text:'ОСТОРОЖНО, КАРЬЕР →'},{k:'flag',x:2637}],
+ {name:'КАРЬЕР',short:'КАРЬЕР',hint:'Перепрыгни котлованы и забери рыбок на платформе над финишем.',theme:QUARRY,spawn:{x:120,y:600},praise:'КАРЬЕР ОСТАЛСЯ ПОЗАДИ!',checks:[{at:2670,x:2640,y:600}],decor:[{k:'sign',x:205,text:'ОСТОРОЖНО, КАРЬЕР →'},{k:'flag',x:2637}],finishFish:[[6115,250],[6175,250]],
   platforms:[ground(0,900),ground(1050,1050),ground(2250,900),ground(3290,910),ground(4360,890),ground(5400,1000),
-   ledge(925,500,100),ledge(2125,500,100),ledge(3170,500,100),ledge(4230,500,100),ledge(5275,500,100),
    ledge(430,500,220),ledge(730,400,170),ledge(1010,300,190),
    ledge(1280,500,220),ledge(1580,400,200),ledge(1860,300,200),
    ledge(2400,500,220),ledge(2700,400,200),ledge(2980,300,170),
@@ -452,7 +456,9 @@ function loadLevel(i){levelIndex=i;level=LEVELS[i];theme=level.theme;platforms=l
  const floor=platforms.reduce((w,s)=>s.kind==='ground'?w+s.w:w,0);
  hasPits=floor<WORLD;hazeH=floor<WORLD*.4?330:175;
  // Levels without a hand-placed fish list derive one from their own platforms once, then keep it on the level.
- if(!level.fish)level.fish=scatter(platforms,obstacles);level.fish=clearFinishZone(level.fish,platforms,obstacles,finish);fishSeeds=level.fish;
+ // Static cactus enemies reserve the same safety margin as crates, so a collectible never asks for a damaging touch.
+ const fishBlockers=[...obstacles,...(level.cacti||[]).map(([x,y])=>({x:x-22,y:y-66,w:44,h:66}))];
+ if(!level.fish)level.fish=scatter(platforms,fishBlockers);level.fish=clearFinishZone(level.fish,platforms,fishBlockers,finish);if(level.finishFish)level.fish=addFinishChallenge(level.fish,level.finishFish);fishSeeds=level.fish;
  lives=3;cpIndex=0;collected=0;checkpoint=level.spawn;levelScore=score;fishes=fishSeeds.map(([x,y],k)=>({x,y,phase:k*1.7,taken:false}));enemies=makeEnemies();particles=[];levelTime=0;shownSecond=-1;toastTime=0;ui.toast.classList.remove('show');clearInput();spawn();
  ui.edition.textContent=`УРОВЕНЬ ${i+1} ИЗ ${LEVELS.length} · ${level.name}`;ui.tagline.textContent=level.hint;updateHUD();}
 // PROGRESS (1.2) — cleared levels with their best fish and best time, kept in this browser only. Storage can be missing
@@ -566,9 +572,9 @@ function overlaps(a,b){return a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y
 // and is skipped in the x pass, so it can never shove him off itself; a fallen plank (`gone`) is skipped everywhere.
 function movePlayer(dt){const p=player;
  let carry=0;if(p.ride){carry=p.ride.mx;p.x+=carry;p.y=p.ride.y-p.h;}p.carry=carry;
- const axis=Number(held('ArrowRight')||held('KeyD'))-Number(held('ArrowLeft')||held('KeyA'))||stick.axis;
+ const axis=Number(held('ArrowRight')||held('KeyD'))-Number(held('ArrowLeft')||held('KeyA'))||stick.axis,icy=theme.ice&&p.grounded,topSpeed=PHYS.speed*(icy?1.5:1),acceleration=icy?1650:PHYS.acceleration,brake=icy?180:PHYS.brake;
  // The stick is analog: a light push walks, a full push runs. Easing the stick back brakes down to the new top speed instead of snapping.
- if(axis){const top=PHYS.speed*Math.abs(axis);p.facing=Math.sign(axis);const v=p.vx+p.facing*PHYS.acceleration*dt;p.vx=Math.abs(v)>top&&Math.sign(v)===p.facing?p.facing*Math.max(top,Math.abs(p.vx)-PHYS.brake*dt):v;}else{p.vx=Math.sign(p.vx)*Math.max(0,Math.abs(p.vx)-PHYS.brake*dt);}
+ if(axis){const top=topSpeed*Math.abs(axis);p.facing=Math.sign(axis);const v=p.vx+p.facing*acceleration*dt;p.vx=Math.abs(v)>top&&Math.sign(v)===p.facing?p.facing*Math.max(top,Math.abs(p.vx)-brake*dt):v;}else{p.vx=Math.sign(p.vx)*Math.max(0,Math.abs(p.vx)-brake*dt);}
  p.coyote=p.grounded?PHYS.coyote:Math.max(0,p.coyote-dt);p.buffer=Math.max(0,p.buffer-dt);
  if(p.buffer>0&&p.coyote>0){p.vy=-PHYS.jump;p.grounded=false;p.coyote=0;p.buffer=0;tone(520,.16,'triangle');}
  p.vy=Math.min(PHYS.fall,p.vy+PHYS.gravity*dt);p.x+=p.vx*dt;
@@ -586,14 +592,16 @@ function loseLife(){lives--;tone(130,.35,'sawtooth');burst(player.x+26,player.y+
 // ENEMIES — walkers pace a stretch of their own shelf, fliers glide across a gap between two. Both are squashed by a
 // stomp from above, which is also how you get past one that is sitting on a narrow ledge you have to land on.
 // The level says how they move (walkers/robots, fliers/drones, and their speeds); the theme says what they look like.
-function makeEnemies(){const out=[],sp=level.speeds||{walk:78,fly:104};
+ function makeEnemies(){const out=[],sp=level.speeds||{walk:78,fly:104};
  const walker=(k,speed)=>([x,y,r])=>out.push({k,x:x-22,y:y-36,w:44,h:36,minX:x-r-22,maxX:x+r-22,dir:1,speed,phase:x*.013,alive:true,death:0});
- const flier=(k,speed)=>([x,y,r,bob=22])=>out.push({k,x:x-22,y:y-20,w:44,h:40,minX:x-r-22,maxX:x+r-22,dir:-1,speed,phase:x*.013,alive:true,death:0,base:y-20,bob});
+  const flier=(k,speed)=>([x,y,r,bob=22,departRight=false])=>{const minX=x-r-22,maxX=x+r-22;out.push({k,x:departRight?minX:x-22,y:y-20,w:44,h:40,minX,maxX,dir:departRight?1:-1,speed,phase:x*.013,alive:true,death:0,base:y-20,bob});};
  (level.crabs||[]).forEach(walker('crab',sp.walk));(level.robots||[]).forEach(walker('robot',sp.walk+6));
  (level.gulls||[]).forEach(flier('gull',sp.fly));(level.drones||[]).forEach(flier('drone',sp.fly+8));
+ (level.cacti||[]).forEach(([x,y])=>out.push({k:'cactus',x:x-22,y:y-66,w:44,h:66,dir:0,speed:0,phase:x*.013,alive:true,death:0,static:true}));
  return out;}
 function updateEnemies(dt){for(const e of enemies){
   if(!e.alive){if(e.death>0)e.death-=dt;continue;}
+  if(e.static)continue;
   e.x+=e.dir*e.speed*dt;
   if(e.x<=e.minX){e.x=e.minX;e.dir=1;}else if(e.x>=e.maxX){e.x=e.maxX;e.dir=-1;}
   if(e.base!==undefined)e.y=e.base+Math.sin(elapsed*2.1+e.phase)*e.bob;}}
@@ -612,6 +620,7 @@ function resetHazards(){liftClock=0;for(const s of platforms){if(s.kind==='crumb
 // Returns true when a life was lost, so update() stops touching the player object loseLife() has already replaced.
 function hitEnemies(){const p=player;
  for(const e of enemies){if(!e.alive||!overlaps(p,e))continue;
+  if(e.k==='cactus'){if(p.invincible<=0){loseLife();return true;}continue;}
   if(p.vy>0&&p.y+p.h-e.y<28){e.alive=false;e.death=.4;score+=200;p.vy=-470;
    burst(e.x+e.w/2,e.y+12,'#ffe08a',12);particles.push({x:e.x+e.w/2,y:e.y-4,vx:0,vy:-55,life:.8,max:.8,color:'#fff',text:'+200'});
    tone(300,.09,'square');tone(560,.12,'square',.06);updateHUD();}
@@ -782,14 +791,15 @@ function drawPlatform(s){const x=s.x;if(s.kind==='ground'){rounded(x,s.y,s.w,s.h
   if(s.state)for(const f of [.3,.7])line([[x+s.w*f,y],[x+s.w*(f+.06),y+12],[x+s.w*f,y+26]],ice?'#5d97b8':'#4a4640',2);
   ctx.restore();}
  // A shelf is a steel beam on the site and a plank walkway on the pier: same geometry, different palette.
- else{rounded(x,s.y+3,s.w,s.h,9,theme.ledge);rounded(x,s.y,s.w,13,7,theme.ledgeTop);rounded(x+4,s.y,s.w-8,5,4,theme.ledgeLip);for(let i=20;i<s.w;i+=44)line([[x+i,s.y+19],[x+i+15,s.y+19]],theme.plank,3);}}
+ else{rounded(x,s.y+3,s.w,s.h,9,theme.ledge);rounded(x,s.y,s.w,13,7,theme.ledgeTop);rounded(x+4,s.y,s.w-8,5,4,theme.ledgeLip);for(let i=20;i<s.w;i+=44)line([[x+i,s.y+19],[x+i+15,s.y+19]],theme.plank,3);}
+ if(theme.ice&&!(s.kind==='crumble'&&s.state===3)){const y=s.y+(s.drop||0);ctx.save();ctx.globalAlpha=.7;rounded(x+3,y,s.w-6,8,4,'#dff7ff');for(let q=x+20;q<x+s.w-10;q+=58)line([[q,y+3],[q+20,y+1]],'#8EDDFF',2);ctx.restore();}}
 function drawObstacle(o){const cx=o.x+o.w/2;
  if(o.kind==='cone'){ctx.fillStyle='#f2762a';ctx.beginPath();ctx.moveTo(cx-6,o.y+2);ctx.quadraticCurveTo(cx,o.y-3,cx+6,o.y+2);ctx.lineTo(cx+o.w/2-5,o.y+o.h-9);ctx.lineTo(cx-o.w/2+5,o.y+o.h-9);ctx.closePath();ctx.fill();
   rounded(cx-14,o.y+o.h*.42,28,9,2,'#fff3e2');rounded(o.x,o.y+o.h-10,o.w,10,4,'#e0611f');ellipse(cx-7,o.y+16,3,6,'#ff9a5c',-.15);}
  else if(o.kind==='pipe'){rounded(o.x,o.y,o.w,o.h,11,'#b8bec6');rounded(o.x+4,o.y+3,o.w-8,7,4,'#d5dae0');ellipse(o.x+o.w-7,o.y+o.h/2,10,o.h/2-3,'#9aa1aa');ellipse(o.x+o.w-7,o.y+o.h/2,6,o.h/2-11,'#5f6873');line([[o.x+16,o.y+o.h-10],[o.x+38,o.y+o.h-10]],'#9aa1aa',3);}
- else if(o.kind==='crate'){rounded(o.x,o.y,o.w,o.h,5,'#c58d50');rounded(o.x+5,o.y+5,o.w-10,o.h-10,3,'#dbad6a');line([[o.x+8,o.y+8],[o.x+o.w-8,o.y+o.h-8]],'#bb8048',5);line([[o.x+o.w-8,o.y+8],[o.x+8,o.y+o.h-8]],'#bb8048',5);}
- // Default: a blue site barrel with the same lightning mark the cat wears.
- else{rounded(o.x,o.y,o.w,o.h,7,'#3f7fbe');ctx.fillStyle='#2f6396';ctx.fillRect(o.x,o.y+o.h*.3,o.w,5);ctx.fillRect(o.x,o.y+o.h*.72,o.w,5);ellipse(cx,o.y+6,o.w/2-2,6,'#5a9ad6');ellipse(cx,o.y+6,o.w/2-9,3.5,'#7cb2e4');bolt(cx,o.y+o.h*.52,.55,'#e9f4ff');}}
+ else if(o.kind==='crate'){rounded(o.x,o.y,o.w,o.h,5,BRAND.dark);rounded(o.x+5,o.y+5,o.w-10,o.h-10,3,'#2D4E67');drawSignalLogo(cx,o.y+o.h/2,34,'white');}
+ // Default: a blue site barrel branded with the full SIGNAL mark.
+ else{rounded(o.x,o.y,o.w,o.h,7,'#3f7fbe');ctx.fillStyle='#2f6396';ctx.fillRect(o.x,o.y+o.h*.3,o.w,5);ctx.fillRect(o.x,o.y+o.h*.72,o.w,5);ellipse(cx,o.y+6,o.w/2-2,6,'#5a9ad6');ellipse(cx,o.y+6,o.w/2-9,3.5,'#7cb2e4');drawSignalLogo(cx,o.y+o.h*.56,31,'white');}}
 // ENEMY ART — the level says how an enemy moves, the theme says what it looks like: the crab recoloured into a beetle
 // or a scarab, the gull into an eagle, a bullfinch or a pigeon, plus a robot and a drone for the machine locations.
 // All of them squash into a puff.
@@ -798,7 +808,8 @@ function drawEnemy(e){const cx=e.x+e.w/2;
  if(!e.alive){if(e.death<=0)return;ctx.globalAlpha=Math.max(0,e.death/.4);ellipse(cx,e.y+e.h-5,25,6,e.k==='gull'?(theme.gull||GULL)[0]:e.k==='crab'?(theme.crab||CRAB)[0]:'#5d6b78');ctx.globalAlpha=1;return;}
  // Machine locations (theme.robo / theme.drone) draw the plain walkers and fliers as robots and drones.
  const k=e.k==='crab'&&theme.robo?'robot':e.k==='gull'&&theme.drone?'drone':e.k;
- if(k==='crab')drawCrab(e,cx,theme.crab||CRAB);else if(k==='gull')drawGull(e,cx,theme.gull||GULL);else if(k==='robot')drawRobot(e,cx);else drawDrone(e,cx);}
+ if(k==='cactus')drawCactusEnemy(e,cx);else if(k==='crab')drawCrab(e,cx,theme.crab||CRAB);else if(k==='gull')drawGull(e,cx,theme.gull||GULL);else if(k==='robot')drawRobot(e,cx);else drawDrone(e,cx);}
+function drawCactusEnemy(e,cx){const y=e.y,body='#7CFF00',light='#D7FF4F',dark='#49C900',spike='#F7FFE8';ctx.save();if(!MOBILE){ctx.shadowColor='#9DFF2488';ctx.shadowBlur=10;}ellipse(cx,y+64,22,5,'#67E60044');rounded(cx-10,y+9,20,57,9,body);rounded(cx-25,y+25,11,25,6,dark);rounded(cx+14,y+18,11,30,6,dark);rounded(cx-25,y+36,20,10,5,body);rounded(cx+5,y+31,20,10,5,body);ellipse(cx,y+8,10,9,light);ctx.restore();for(const [dx,dy,a] of [[-7,18,-.5],[7,25,.5],[-7,40,-.5],[7,51,.5],[-19,31,-.7],[20,24,.7]])line([[cx+dx,y+dy],[cx+dx+Math.cos(a)*8,y+dy+Math.sin(a)*8]],spike,2);}
 // A robot vacuum on the site: spinning side brushes, a blinking eye that looks where it goes, the cat's bolt on its lid.
 function drawRobot(e,cx){const top=e.y,spin=elapsed*14+e.phase,accent=theme.flag;
  for(const d of [-1,1])for(let i=0;i<3;i++){const a=spin*d+i*2.1;line([[cx+d*17,top+31],[cx+d*17+Math.cos(a)*8,top+31+Math.sin(a)*3]],accent,2);}
@@ -832,11 +843,14 @@ function drawGull(e,cx,p){const flap=Math.sin(elapsed*9+e.phase),d=e.dir;
 // PLAYER SPRITES
 // Assigned by the embedded sprite renderer before the game loop starts.
 let drawPlayer;
-function drawFinish(){const x=finish.x;rounded(x+25,455,8,145,4,'#ab8556');ctx.fillStyle=theme.flag;ctx.beginPath();ctx.moveTo(x+33,456);ctx.quadraticCurveTo(x+75,440,x+109,460);ctx.lineTo(x+109,509);ctx.quadraticCurveTo(x+68,491,x+33,510);ctx.fill();fish(x+70,483,.7,-.12);rounded(x-20,555,112,30,9,theme.plaque);label('ФИНИШ',x+36,576,16,theme.ink);for(let i=0;i<5;i++)theme.plant(x-34+i*34,600,i);}
+function drawSignalLogo(cx,cy,h,tone='white'){const img=brandArt[tone],w=h*.784;if(img&&img.complete&&img.naturalWidth)ctx.drawImage(img,cx-w/2,cy-h/2,w,h);else label('SIGNAL',cx,cy+h*.16,h*.22,tone==='white'?BRAND.white:BRAND.dark);}
+function drawSMark(cx,cy,w,tone='white'){const img=brandArt[tone==='white'?'markWhite':'markDark'],h=w*.945;if(img&&img.complete&&img.naturalWidth)ctx.drawImage(img,cx-w/2,cy-h/2,w,h);else label('S',cx,cy+w*.28,w*.72,tone==='white'?BRAND.white:BRAND.dark);}
+function brandGradient(x0,y0,x1,y1){const g=ctx.createLinearGradient(x0,y0,x1,y1);g.addColorStop(0,BRAND.cyan);g.addColorStop(1,BRAND.blue);return g;}
+function drawFinish(){const x=finish.x;rounded(x+25,455,8,145,4,BRAND.dark);ctx.fillStyle=brandGradient(x+33,456,x+109,509);ctx.beginPath();ctx.moveTo(x+33,456);ctx.quadraticCurveTo(x+75,440,x+109,460);ctx.lineTo(x+109,509);ctx.quadraticCurveTo(x+68,491,x+33,510);ctx.fill();drawSignalLogo(x+70,472,36,'white');rounded(x-20,555,112,30,9,theme.plaque);label('ФИНИШ',x+36,576,16,theme.ink);for(let i=0;i<5;i++)theme.plant(x-34+i*34,600,i);}
 // Signposts and the checkpoint flag come from level.decor.
-function drawDecor(d){if(d.k==='sign'){rounded(d.x,524,7,76,3,'#ba9261');rounded(d.x-48,512,105,35,9,theme.signBg);label(d.text,d.x+5,535,14,theme.signInk);}
- else{rounded(d.x,518,6,82,3,'#ad8659');ctx.fillStyle=checkpoint!==level.spawn&&d.x<=checkpoint.x+40?'#f6b85d':'#fff4cd';ctx.beginPath();ctx.moveTo(d.x+6,518);ctx.lineTo(d.x+48,530);ctx.lineTo(d.x+6,547);ctx.fill();}}
-function render(){theme.bg();if(hasPits)drawAbyss();ctx.save();ctx.translate(-camera,0);for(const s of platforms)if(s.x+s.w>camera-50&&s.x<camera+W+50)drawPlatform(s);for(const o of obstacles)if(o.x>camera-80&&o.x<camera+W+80)drawObstacle(o);
+function drawDecor(d){if(d.k==='sign'){const text=d.text.replace(/\s*[→➜]+\s*$/,'');ctx.font='bold 14px Trebuchet MS,Arial';const w=clamp(Math.ceil(ctx.measureText(text).width)+60,150,235),left=d.x+5-w/2,arrowX=left+w-22;rounded(d.x,524,7,76,3,'#ba9261');rounded(left,510,w,39,10,theme.signBg);label(text,left+13,535,14,theme.signInk,'left');ctx.fillStyle=brandGradient(arrowX-13,516,arrowX+13,542);ctx.beginPath();ctx.arc(arrowX,529.5,13,0,Math.PI*2);ctx.fill();line([[arrowX-6,529.5],[arrowX+6,529.5],[arrowX+1,524.5],[arrowX+6,529.5],[arrowX+1,534.5]],BRAND.white,2.4);}
+ else{rounded(d.x,518,6,82,3,BRAND.dark);ctx.fillStyle=brandGradient(d.x+6,518,d.x+48,547);ctx.beginPath();ctx.moveTo(d.x+6,518);ctx.lineTo(d.x+48,530);ctx.lineTo(d.x+6,547);ctx.fill();drawSMark(d.x+22,532,15,'white');}}
+function render(){theme.bg();if(theme.tint){ctx.fillStyle=theme.tint;ctx.fillRect(0,0,W,H);}if(hasPits)drawAbyss();ctx.save();ctx.translate(-camera,0);for(const s of platforms)if(s.x+s.w>camera-50&&s.x<camera+W+50)drawPlatform(s);for(const o of obstacles)if(o.x>camera-80&&o.x<camera+W+80)drawObstacle(o);
  // Friendly signposts and a midpoint flag give the long level landmarks.
  for(const d of level.decor)drawDecor(d);
  for(const f of fishes)if(!f.taken&&f.x>camera-40&&f.x<camera+W+40)fish(f.x,f.y+Math.sin(elapsed*3+f.phase)*4,.83,Math.sin(elapsed*2+f.phase)*.12);
@@ -890,25 +904,32 @@ window.CAT_SPRITES={"idle":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAH4AAA
  // Resolve only after onload: in WebKit decode() can settle before the image is drawable, and the run cycle
  // is composed once at load time, so a too-early resolve left the running cat with a cape and legs but no body.
  function loadImage(src){return new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>{const done=()=>resolve(img);if(img.decode)img.decode().then(done,done);else done();};img.onerror=()=>reject(new Error('sprite failed to decode'));img.src=src;});}
- Promise.all(['idle','win','rise','fall','body'].map(key=>loadImage(window.CAT_SPRITES[key])))
-  .then(([idle,win,rise,fall,body])=>{sprites[0]=idle;sprites[2]=win;sprites[3]=rise;sprites[6]=fall;buildRunFrames(body,idle);assetsReady();})
+ Promise.all([...['idle','win','rise','fall','body'].map(key=>loadImage(window.CAT_SPRITES[key])),loadImage('docs/SIGNAL Logo white.svg'),loadImage('docs/SIGNAL Logo dark.svg'),loadImage('docs/S Logo white.svg'),loadImage('docs/S Logo dark.svg')])
+  .then(([idle,win,rise,fall,body,whiteLogo,darkLogo,markWhite,markDark])=>{sprites[0]=idle;sprites[2]=win;sprites[3]=rise;sprites[6]=fall;Object.assign(brandArt,{white:whiteLogo,dark:darkLogo,markWhite,markDark});buildRunFrames(body,idle);assetsReady();})
   .catch(error=>{assetError();console.error(error);});
  // The run cycle is drawn once at load time from the cape-less body and a clean lower leg cut from the standing pose.
  // Identical joints and timings on both sides eliminate the old asymmetrical warped stride.
- function buildRunFrames(body,idle){
+  function buildRunFrames(body,idle){
   const foot=document.createElement('canvas');foot.width=32;foot.height=18;
   foot.getContext('2d').drawImage(idle,idle.width*.285,159,idle.width*.255,17,0,0,32,18);
+  // Keep the original running head and arms. Only trim the lower torso,
+  // preserving the white belly and excluding the rear leg remnant from the source pose.
+  const torso=document.createElement('canvas');torso.width=body.width;torso.height=176;
+  const t=torso.getContext('2d');
+  t.beginPath();t.moveTo(0,0);t.lineTo(body.width,0);t.lineTo(body.width,130);t.lineTo(106,130);
+  t.bezierCurveTo(104,142,94,150,79,151);t.bezierCurveTo(62,151,54,144,52,130);
+  t.lineTo(0,130);t.closePath();t.clip();t.drawImage(body,0,0);
+  const bx=112-body.width*.61;
   for(let frame=0;frame<48;frame++){
    const out=document.createElement('canvas');out.width=224;out.height=176;const g=out.getContext('2d'),phase=frame/48*Math.PI*2;
    function limb(offset,hip){const q=(phase+offset)%(Math.PI*2),stance=q<Math.PI,t=stance?q/Math.PI:(q-Math.PI)/Math.PI;
-    const reach=stance?22-44*t:-22+44*ease(t),lift=stance?0:Math.sin(t*Math.PI)*20,ankle=167-lift;
+    // Lower the forward swinging paw slightly so its upper edge cannot protrude beside the belly.
+    const reach=stance?22-44*t:-22+44*ease(t),lift=stance?0:Math.sin(t*Math.PI)*(20-6*ease((reach+22)/44)),ankle=167-lift;
     g.strokeStyle='#082438';g.lineWidth=23;g.lineCap='round';g.lineJoin='round';g.beginPath();g.moveTo(hip,132);g.quadraticCurveTo(hip+reach*.35,148-lift*.6,hip+reach,ankle-3);g.stroke();
     g.save();g.translate(hip+reach,ankle);g.scale(-1,1);g.drawImage(foot,-16,-9);g.restore();
    }
    limb(Math.PI,104);limb(0,116);
-   // Keep head/torso fixed and cover the leg roots so neither hip drops.
-   const bx=112-body.width*.61;
-   g.drawImage(body,0,0,body.width,141,bx,0,body.width,141);
+   g.drawImage(torso,bx,0);
    runFrames.push(out);
   }
  }
@@ -1011,7 +1032,7 @@ window.CAT_SPRITES={"idle":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAH4AAA
   const lean=clamp(Math.abs(player.vx)/PHYS.speed*.14+accel*player.facing*.00002,-.05,.19);
   a.lean=smooth(a.lean,lean,1-Math.exp(-12*dt));
   const lastStep=Math.floor(a.stride/Math.PI);
-  if(player.grounded)a.stride+=Math.abs(player.x-before)/108*Math.PI*2;
+   if(player.grounded){const travelled=Math.abs(player.x-before),animated=theme.ice?Math.min(travelled,PHYS.speed*dt):travelled;a.stride+=animated/108*Math.PI*2;}
   if(player.vy<-400&&vy>=0){a.launch=0;a.stretch=.1;a.spring=-2.7;burst(player.x+26,player.y+64,'#e6f4ff',4);}
   if(!grounded&&player.grounded&&vy>180){a.landing=0;a.impact=clamp(vy/850,.25,1);a.spring=3*a.impact;tone(105,.09,'sine');burst(player.x+26,player.y+64,'#e6f4ff',5);}
   const target=player.grounded?0:-.07*clamp(Math.abs(player.vy)/700,0,1);
