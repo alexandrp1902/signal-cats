@@ -236,7 +236,8 @@ const NIGHTSITE=place({tint:'#10253866',dirt:'#a88d6c',seam:'#927656',grass:'#7e
   {k:'posts',base:600,h:230,step:560,par:.55,c:'#4a5670',c2:'#fffbe0',beam:'#fff6c01c'}]});
 const AQUARIUM=place({tint:'#10253852',dirt:'#d8c08c',seam:'#c4aa76',grass:'#e8d6a4',grassTop:'#f4e6bc',tuft:'#d4be8a',pebble:'#b9a070',sprig:'#2f8f6a',plant:coral,drone:true,flag:'#ff8a7a',haze:['#0a3a4a00','#0a3a4a48','#04222eb8']},
  {sky:['#2f8fa8','#56b6c6','#86d3d6'],fx:{k:'bubbles',n:26,c:'#e6fbffa0',vy:30},layers:[
-  {k:'fishes',base:420,step:260,par:.15,c:'#1f6f86'},{k:'kelp',base:600,h:260,step:130,par:.35,c:'#2f8f6a'},{k:'scaffold',base:606,step:600,par:.55,c:'#9fd6e0'}]});
+  {k:'fishes',base:420,step:260,par:.15,c:'#1f6f86'},{k:'wrecks',base:658,step:760,off:260,par:.22,s:.95,c:'#1d5f73',c2:'#2b7a90',c3:'#154a5c'},
+  {k:'kelp',base:600,h:260,step:130,par:.35,c:'#2f8f6a'},{k:'scaffold',base:606,step:600,par:.55,c:'#9fd6e0'}]});
 // The sky route stands on nothing but cloud: `cloudy` is what tells drawPlatform to paint a surface as a bank of
 // white instead of a steel beam, and the palette below is only ever seen on the signs, the flag and the finish plaque.
 function puff(x,y,i){const s=[.7,.95,.82][i%3];ellipse(x,y-7*s,14*s,8*s,'#ffffff');ellipse(x-10*s,y-3*s,9*s,6*s,'#e9f4fd');ellipse(x+10*s,y-4*s,8*s,5*s,'#e9f4fd');}
@@ -557,7 +558,7 @@ const movement=()=>level.movement||'platform';
 // A respawn also puts every enemy back where it started. Without it a stomped bird would stay gone for the rest of
 // the attempt, and on the sky route - where the gull chains are the only way over the voids - the level could be
 // left uncrossable by a single missed step.
-function spawn(){resetHazards();enemies=makeEnemies();const free=['swim','flight'].includes(movement());player={x:checkpoint.x,y:checkpoint.y-64,w:52,h:64,vx:0,vy:0,grounded:!free,coyote:free?0:PHYS.coyote,buffer:0,facing:1,invincible:1.8,ride:null,carry:0,dashX:1,dashY:0,dashT:0,dashMax:0,dashCd:0,finPhase:0,bubbleClock:0,web:null,webFlash:0};camera=cameraTarget();}
+function spawn(){resetHazards();enemies=makeEnemies();const free=['swim','flight'].includes(movement());player={x:checkpoint.x,y:checkpoint.y-64,w:52,h:64,vx:0,vy:0,grounded:!free,coyote:free?0:PHYS.coyote,buffer:0,facing:1,invincible:1.8,ride:null,carry:0,dashX:1,dashY:0,dashT:0,dashMax:0,dashCd:0,finPhase:0,capePhase:0,bubbleClock:0,web:null,webFlash:0};camera=cameraTarget();}
 // loadLevel rebuilds every level-bound binding. `solids` is a snapshot, not a live view, so it must be rebuilt here too.
 // Every attempt at a level gets three lives; the score carries on through a run and rolls back on a replay.
 function loadLevel(i){levelIndex=i;level=LEVELS[i];theme=level.theme;platforms=level.platforms;obstacles=level.obstacles;solids=[...platforms,...obstacles];finish=level.finish;worldEnd=level.world||WORLD;
@@ -752,6 +753,9 @@ function moveFreePlayer(dt){const p=player,swim=movement()==='swim',[ax,ay]=inpu
  // still against the edge of the world, and would never reach a true zero while drag bleeds off. One eight-frame
  // stroke per 218 px: about 9 fps at cruise, 16 in a dash, and a dead stop when the cat stops.
  if(swim){const moved=Math.hypot(p.x-bx,p.y-by);if(moved>.05)p.finPhase=(p.finPhase+moved/27.3)%8;}
+ // The cape keeps fluttering while the cat hangs still - it is wind, not a stroke - and beats faster the harder the
+ // cat flies: about 0.8 waves a second hovering, 1.9 at cruise and above.
+ else p.capePhase=((p.capePhase||0)+dt*(5+Math.min(1,Math.hypot(p.vx,p.vy)/330)*7))%(Math.PI*2);
  if(Math.abs(ax)>.08)p.facing=Math.sign(ax);p.grounded=false;p.invincible=Math.max(0,p.invincible-dt);}
 // The shot carries to the far edge of the visible frame, so a beam most of a screen ahead is still worth aiming at.
 function webReach(){return Math.max(620,W*.8);}
@@ -961,6 +965,31 @@ const LAYER={
  cloudbank(L){each(L,(x,v)=>cloud(x,L.base+(v%3)*L.h,L.s*(.7+v%3*.2),L.c));},
  kelp(L){each(L,(x,v)=>{const h=L.h*(.6+v%3*.2),pts=[];for(let k=0;k<=6;k++){const t=k/6;pts.push([x+Math.sin(elapsed*1.4+v+t*3)*12*t,L.base-h*t]);}line(pts,L.c,7);});},
  fishes(L){each(L,(x,v)=>{const fx=x+(elapsed*22*(1+v%2))%L.step,y=L.base-v*22+Math.sin(elapsed+v)*8;ellipse(fx,y,15,6,L.c);tri([fx-13,y],[fx-24,y-7],[fx-24,y+7],L.c);});},
+ // Wrecks on the floor of the quarry: one with its mast still up, one with the mast snapped and lying along the
+ // deck, one down to its ribs, and each of them lying bow left or bow right by turns, so a row of them never
+ // reads as the same ship stamped twice. Drawn in two flat tones off the layer, like
+ // every other scenery kit: this runs behind the kelp on a phone as well.
+ wrecks(L){each(L,(x,v)=>{const s=(L.s||1)*(.82+v%3*.12),bare=v%3===2,dir=v%2?-1:1;
+  ctx.save();ctx.translate(x,L.base);ctx.scale(dir*s,s);ctx.rotate(.13);
+  ellipse(0,4,152,20,L.c3||L.c);
+  if(bare){line([[-110,-16],[-44,-2],[62,-6],[130,-34]],L.c,8);
+   for(let i=0;i<8;i++){const t=i/7,rx=-106+t*232,ry=-8-t*14,h=94-Math.abs(t-.42)*92;
+    line([[rx,ry],[rx+13,ry-h*.55],[rx+3,ry-h]],L.c,5);}
+   // The stem post still standing at the bow, and the stump of the one at the stern.
+   line([[128,-32],[146,-104]],L.c,6);line([[-110,-14],[-120,-58]],L.c,6);}
+  else{ctx.fillStyle=L.c;ctx.beginPath();
+   ctx.moveTo(-112,-56);ctx.lineTo(136,-72);
+   ctx.quadraticCurveTo(122,-16,48,-6);ctx.lineTo(-54,-2);
+   ctx.quadraticCurveTo(-106,-8,-112,-56);ctx.closePath();ctx.fill();
+   line([[-112,-56],[136,-72]],L.c2,7);
+   line([[-104,-40],[126,-56]],L.c2,3);
+   for(let i=0;i<5;i++)ellipse(-72+i*40,-28-i*2.4,7,7,L.c3||L.c2);
+   // The hole amidships; then either the mast with the rigging still on its yard, or its stump and the spar down.
+   ctx.fillStyle=L.c3||L.c2;ctx.beginPath();ctx.moveTo(18,-8);ctx.lineTo(46,-46);ctx.lineTo(74,-12);ctx.closePath();ctx.fill();
+   if(v%3){line([[4,-60],[-6,-108]],L.c,7);line([[-84,-50],[96,-70]],L.c,5);}
+   else{line([[6,-62],[-34,-196]],L.c,7);line([[-16,-146],[-62,-136]],L.c,4);line([[-16,-146],[26,-158]],L.c,4);
+    line([[-30,-182],[-58,-138]],L.c2,2);line([[-30,-182],[14,-152]],L.c2,2);}}
+  ctx.restore();});},
  cacti(L){each(L,(x,v)=>{const h=L.h*(.7+v%3*.15);rounded(x-7,L.base-h,14,h,7,L.c);rounded(x-22,L.base-h*.62,9,h*.3,5,L.c);rounded(x-22,L.base-h*.4,20,8,4,L.c);rounded(x+13,L.base-h*.78,9,h*.3,5,L.c);rounded(x+4,L.base-h*.55,18,8,4,L.c);});},
  containers(L){each(L,(x,v)=>{for(let k=0;k<1+v%3;k++){const y=L.base-38*(k+1);rounded(x,y,110,36,2,L.pal[(v+k)%L.pal.length]);ctx.fillStyle='#00000022';for(let r=8;r<104;r+=12)ctx.fillRect(x+r,y+4,3,28);}});},
  // Sawtooth factory roofs with a chimney whose smoke puffs drift up on the animation clock.
@@ -1205,17 +1234,26 @@ function drawSMark(cx,cy,w,tone='white'){const img=brandArt[tone==='white'?'mark
 function brandGradient(x0,y0,x1,y1){const g=ctx.createLinearGradient(x0,y0,x1,y1);g.addColorStop(0,BRAND.cyan);g.addColorStop(1,BRAND.blue);return g;}
 const costumeSprites={swim:[],flight:[],web:[]};
 let drawWebGroundPose=()=>{};
-// The two flight frames are cropped to their own art, and frame 1's cat is about a ninth smaller inside its PNG than
-// frame 0's. Drawn to one width, the cat therefore swelled and shrank three times a second. Each frame now carries
-// its own scale and its own anchor - the centre of the white of the suit, measured off the source art - so the two
-// land on top of each other and only the cape moves. ANCHOR is where that centre sits relative to the cat's box.
-const FLIGHT_FRAMES=[{scale:.4297,ax:143.5,ay:103.5},{scale:.4772,ax:155,ay:95.5}],FLIGHT_ANCHOR={x:6.66,y:-4.03};
+// The flight costume used to swap two drawn poses three times a second. They are different drawings - head, paws and
+// body sit in different places in each - so however the frames were aligned, the body jumped back and forth, hovering
+// or not. The cat is now one still pose (the old frame 0) cut in two on the same 256x226 canvas: flight-body.png and
+// flight-cape.png. Only the cape moves. It is drawn in thin vertical strips, each lifted by a wave that runs from the
+// shoulders to the tip, so the part tucked behind the body stays put and only the free end flutters; flying faster
+// makes the wave quicker and wider and lifts the tip to stream behind. The two layers never overlap, so the
+// invincibility blink does not show the cape through the body. ANCHOR is where the centre of the white of the suit
+// sits relative to the cat's box; CAPE is the cape's box in the PNG and the column where it leaves the body.
+const FLIGHT_BODY={scale:.4297,ax:143.5,ay:103.5},FLIGHT_ANCHOR={x:6.66,y:-4.03},FLIGHT_CAPE={x1:101,y0:113,h:75,root:64,strip:2};
+function drawFlightCape(cape,ox,oy,sc){const C=FLIGHT_CAPE,speed=Math.min(1,Math.hypot(player.vx,player.vy)/330),amp=5+speed*6,lift=speed*14,phase=player.capePhase||0;
+ for(let u=0;u<C.root;u+=C.strip){const t=(C.root-u-C.strip/2)/C.root,dy=t**1.6*(amp*Math.sin(phase-t*3.4)-lift);
+  ctx.drawImage(cape,u,C.y0,C.strip,C.h,ox+u*sc,oy+(C.y0+dy)*sc,C.strip*sc+.6,C.h*sc);}
+ ctx.drawImage(cape,C.root,C.y0,C.x1-C.root,C.h,ox+C.root*sc,oy+C.y0*sc,(C.x1-C.root)*sc,C.h*sc);}
 function drawSpecialPlayer(x,y){const kind=movement();if(!costumeSprites[kind])return false;const frames=costumeSprites[kind];if(!frames.length)return true;
  if(kind==='web'&&!player.web&&!(player.webFlash>0)&&player.grounded){drawWebGroundPose(x,y);return true;}
- const web=kind==='web',frame=web?(player.web?1:0):kind==='swim'?Math.floor(player.finPhase||0)%frames.length:Math.floor(elapsed*3)%frames.length,s=frames[frame],
-  f=kind==='flight'?FLIGHT_FRAMES[frame%FLIGHT_FRAMES.length]:null,width=f?s.width*f.scale:web?77:kind==='swim'?92:110,height=f?s.height*f.scale:width*s.height/s.width;
+ const web=kind==='web',flight=kind==='flight',frame=web?(player.web?1:0):kind==='swim'?Math.floor(player.finPhase||0)%frames.length:0,s=frames[frame],
+  f=flight?FLIGHT_BODY:null,width=f?s.width*f.scale:web?77:92,height=f?s.height*f.scale:width*s.height/s.width;
  ctx.save();ctx.translate(x+26,y+32);ctx.scale(player.facing,1);ctx.rotate(web?(player.web?clamp(player.vx/1400,-.32,.32):clamp(player.vy/3200,-.11,.11)):clamp(player.vy/1900,-.18,.18));if(player.invincible>0&&mode==='playing')ctx.globalAlpha=.65+.35*Math.sin(elapsed*18)**2;
- ctx.drawImage(s,f?FLIGHT_ANCHOR.x-f.ax*f.scale:-width/2,f?FLIGHT_ANCHOR.y-f.ay*f.scale:web?32-height:-height/2,width,height);ctx.restore();return true;}
+ if(flight){const ox=FLIGHT_ANCHOR.x-f.ax*f.scale,oy=FLIGHT_ANCHOR.y-f.ay*f.scale;drawFlightCape(frames[1],ox,oy,f.scale);ctx.drawImage(s,ox,oy,width,height);}
+ else ctx.drawImage(s,-width/2,web?32-height:-height/2,width,height);ctx.restore();return true;}
 // The ray's disc is a lens: tall in the middle, tapering to points at nose and tail. A rectangle as wide as the disc
 // therefore has empty water in its corners, which is what the old 96x46 box was - it killed above, below and beyond the
 // wings. This box is sized to sit inside the drawn disc at every phase of the wing beat instead, and the discharge is
@@ -1400,8 +1438,14 @@ window.CAT_SPRITES={"idle":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAH4AAA
  // Resolve only after onload: in WebKit decode() can settle before the image is drawable, and the run cycle
  // is composed once at load time, so a too-early resolve left the running cat with a cape and legs but no body.
  function loadImage(src){return new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>{const done=()=>resolve(img);if(img.decode)img.decode().then(done,done);else done();};img.onerror=()=>reject(new Error('sprite failed to decode'));img.src=src;});}
- const costumeReady=Promise.all(Object.entries({swim:8,flight:2,web:2}).map(async([kind,count])=>{costumeSprites[kind]=await Promise.all(Array.from({length:count},(_,i)=>loadImage(`docs/costumes-1.4/${kind}-${i}.png`)));}));
- Promise.all([...['idle','win','rise','fall','body'].map(key=>loadImage(window.CAT_SPRITES[key])),loadImage('docs/SIGNAL Logo white.svg'),loadImage('docs/SIGNAL Logo dark.svg'),loadImage('docs/S Logo white.svg'),loadImage('docs/S Logo dark.svg'),costumeReady])
+ const costumeReady=Promise.all(Object.entries({swim:8,flight:['body','cape'],web:2}).map(async([kind,files])=>{const names=Array.isArray(files)?files:Array.from({length:files},(_,i)=>i);costumeSprites[kind]=await Promise.all(names.map(n=>loadImage(`docs/costumes-1.4/${kind}-${n}.png`)));}));
+ // Ear masks are pose-specific, since the blue tips touch the helmet in a few source frames.
+ function whiteDocsEars(img,triangles){const c=document.createElement('canvas');c.width=img.width;c.height=img.height;const g=c.getContext('2d',{willReadFrequently:true});g.drawImage(img,0,0);const pixels=g.getImageData(0,0,c.width,c.height),a=pixels.data,w=c.width;
+  const cross=(p,q,x,y)=>(q[0]-p[0])*(y-p[1])-(q[1]-p[1])*(x-p[0]);
+  for(const [p,q,r] of triangles)for(let y=Math.max(0,Math.floor(Math.min(p[1],q[1],r[1])));y<=Math.min(c.height-1,Math.ceil(Math.max(p[1],q[1],r[1])));y++)for(let x=Math.max(0,Math.floor(Math.min(p[0],q[0],r[0])));x<=Math.min(w-1,Math.ceil(Math.max(p[0],q[0],r[0])));x++){const signs=[cross(p,q,x+.5,y+.5),cross(q,r,x+.5,y+.5),cross(r,p,x+.5,y+.5)];if(signs.some(v=>v<0)&&signs.some(v=>v>0))continue;const i=(y*w+x)*4;if(a[i+3]>10&&a[i+2]>75&&a[i+1]>45&&a[i+2]>a[i]*1.5&&a[i+1]>a[i]*1.5){const shade=.92+.08*a[i+2]/255;a[i]=Math.round(247*shade);a[i+1]=Math.round(250*shade);a[i+2]=Math.round(252*shade);}}
+  for(const points of triangles){const left=Math.floor(Math.min(...points.map(p=>p[0]))),top=Math.floor(Math.min(...points.map(p=>p[1]))),right=Math.ceil(Math.max(...points.map(p=>p[0]))),bottom=Math.ceil(Math.max(...points.map(p=>p[1])));g.putImageData(pixels,0,0,left,top,right-left+1,bottom-top+1);}return c;}
+ const docsEarSeeds={idle:[[[17,18],[32,24],[17,46]],[[99,10],[108,31],[89,20]]],win:[[[11,35],[26,40],[12,62]],[[107,11],[116,31],[97,23]]],rise:[[[18,19],[32,25],[18,46]],[[103,10],[112,31],[93,21]]],fall:[[[17,18],[32,24],[17,46]],[[99,10],[108,31],[89,20]]],body:[[[31,18],[46,25],[31,47]],[[112,11],[123,33],[102,22]]]};
+ Promise.all([...['idle','win','rise','fall','body'].map(key=>loadImage(window.CAT_SPRITES[key]).then(img=>whiteDocsEars(img,docsEarSeeds[key]))),loadImage('docs/SIGNAL Logo white.svg'),loadImage('docs/SIGNAL Logo dark.svg'),loadImage('docs/S Logo white.svg'),loadImage('docs/S Logo dark.svg'),costumeReady])
   .then(([idle,win,rise,fall,body,whiteLogo,darkLogo,markWhite,markDark])=>{sprites[0]=idle;sprites[2]=win;sprites[3]=rise;sprites[6]=fall;Object.assign(brandArt,{white:whiteLogo,dark:darkLogo,markWhite,markDark});buildRunFrames(body,idle);assetsReady();})
   .catch(error=>{assetError();console.error(error);});
  // The run cycle is drawn once at load time from the cape-less body and a clean lower leg cut from the standing pose.
