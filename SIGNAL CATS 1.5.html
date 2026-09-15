@@ -248,6 +248,21 @@ const CLOUDS=place({cloudy:true,plant:puff,flag:'#ffd34d',ink:'#3c5c78',plaque:'
 const VOLCANO=place({tint:'#301A2866',dirt:'#5b4a46',seam:'#4a3b38',grass:'#6d5c56',grassTop:'#86746c',tuft:'#5e4f4a',pebble:'#8a6a5a',sprig:'#ff8a3c',plant:rockProp,robo:true,drone:true,flag:'#ff8a3c',haze:['#ff5a1a00','#ff6a2a40','#c83c10b0']},
  {sky:['#6b3a3a','#a0503a','#e0864a'],fx:{k:'embers',n:26,c:'#ffae4a',vy:35,r:2},layers:[
   {k:'volcano',base:600,h:330,step:1500,off:700,par:.12,c:'#4a3434'},{k:'columns',base:600,h:240,step:460,par:.35,c:'#4d4448',c2:'#6b6064'},{k:'rocks',base:600,step:360,par:.6,c:'#5a4d4f',c2:'#6d5f61'}]});
+// MANHATTAN (1.5) - the spider cat swings over New York instead of the volcano: a dusk over Midtown with the sun set
+// low between the towers, three rows of skyscrapers (setbacks, spires, water tanks, the Empire State and Chrysler
+// buildings on the far row), seen from up at roof height: no street, the towers just run down into the haze of the
+// gaps. The whole scene sits under a 60% white veil. The islands are flat brick roofs, the web shelves are
+// construction loads hanging off crane cables (drawLoad), and the gulls are grey city pigeons.
+function roofProp(x,y,i){const k=i%3;
+ if(k===0){rounded(x-15,y-17,30,17,3,'#b9c0c8');ellipse(x-4,y-9,5.5,5.5,'#7d8792');for(let q=x+5;q<x+13;q+=3)line([[q,y-14],[q,y-4]],'#8f98a2',1.5);}
+ else if(k===1){rounded(x-3,y-24,6,24,2,'#8d949c');rounded(x-7,y-28,14,5,2,'#6b7278');}
+ else waterTank(x,y,.8,'#8a5a3c','#6a4330');}
+const MANHATTAN=place({tint:'#FFFFFF99',tiles:true,facade:true,plant:roofProp,dirt:'#8c4b3b',seam:'#6e3a2e',grass:'#8e949b',grassTop:'#b9bfc5',tuft:'#8e949b',pebble:'#6e3a2e',sprig:'#00000000',flag:'#e8453c',
+ gull:['#7b8594','#5a6371','#a3acb9','#b8c0cb','#3a4049','#e6c9a2'],haze:['#22304a00','#22304a40','#141d3294']},
+ {sky:['#3f73bb','#8dbbe4','#ffd6a3'],sun:{x:760,y:440,r:58,c:['#ffc070','#ffe0a0'],glow:'#ffcf8a66'},clouds:true,layers:[
+  {k:'nyc',base:H,h:380,step:190,par:.07,c:'#a9bad2',c2:'#bccbdf',marks:true},
+  {k:'nyc',base:H,h:330,step:160,off:60,par:.2,c:'#71869f',c2:'#ffe6a8',c3:'#5d6e86'},
+  {k:'nyc',base:H,h:250,step:230,off:30,par:.4,c:'#44526b',c2:'#ffd27a',c3:'#6a5a52'}]});
 const POLAR=place({tint:'#10253866',dirt:'#c9d9e6',seam:'#b4c7d6',grass:'#eef6fb',grassTop:'#ffffff',tuft:'#dce9f2',pebble:'#aebfcc',sprig:'#8ea3b3',plant:rockProp,ice:true,robo:true,drone:true,flag:'#ff8a4c',haze:['#0a1a3000','#0a1a3048','#050e20b8']},
  {sky:['#3e5a8f','#4f78a6','#86b5d0'],stars:30,fx:{k:'snow',n:30,c:'#ffffffc0',vx:14,vy:34,r:2.2},layers:[
   {k:'aurora',base:180,pal:['#5dffb040','#8a7dff30']},{k:'peaks',base:560,h:170,step:420,par:.15,c:'#dff1fb',c2:'#b5d9ee'},{k:'domes',base:600,h:70,step:620,par:.4,c:'#e8eef3',c2:'#9aa9b6'}]});
@@ -500,8 +515,8 @@ SWIM_LEVEL.blockers=[[600,210],[980,250],[1300,200],[1660,270],[2000,220],[2260,
  [3400,210],[3860,250],[4180,220],[4640,260],[4980,230],[5460,270],[5900,220],[6120,190]].map(a=>kelpWall(...a));
 FLIGHT_LEVEL.blockers=[[900,470],[1700,430],[2320,500],[3050,440],[3450,490],[4400,430],[4980,500],[5750,450],[6050,480]].map(a=>mast(...a));
 const webAnchors=[[800,245],[1480,200],[2150,235],[2820,200],[3490,220],[4170,190],[4850,235],[5520,210],[5940,245]];
-const WEB_LEVEL={name:'КОТ-ПАУК НАД ВУЛКАНОМ',short:'КОТ-ПАУК',movement:'web',theme:VOLCANO,spawn:{x:120,y:600},praise:'ПАУТИНА ВЫДЕРЖАЛА!',hint:'SHOT / пробел / ↓ — паутина и отпускание. ↑ / W / стик вверх — прыжок.',checks:[{at:3140,x:3090,y:600}],decor:[{k:'sign',x:205,text:'ЦЕПЛЯЙСЯ →'},{k:'flag',x:3087}],
- platforms:[ground(0,570),ground(3000,240),ground(6050,350),...webAnchors.map(([x,y])=>Object.assign(ledge(x-60,y,120),{web:true}))],obstacles:[],webAnchors,
+const WEB_LEVEL={name:'КОТ-ПАУК НАД МАНХЭТТЕНОМ',short:'КОТ-ПАУК',movement:'web',theme:MANHATTAN,spawn:{x:120,y:600},praise:'ПАУТИНА ВЫДЕРЖАЛА!',hint:'SHOT / пробел / ↓ — паутина и отпускание. ↑ / W / стик вверх — прыжок.',checks:[{at:3140,x:3090,y:600}],decor:[{k:'sign',x:205,text:'ЦЕПЛЯЙСЯ →'},{k:'flag',x:3087}],
+ platforms:[ground(0,570),ground(3000,240),ground(6050,350),...webAnchors.map(([x,y],i)=>Object.assign(ledge(x-60,y,120),{web:true,load:i}))],obstacles:[],webAnchors,
  gulls:[[1200,420,100,45],[2420,445,100,40],[3880,420,105,50],[5200,430,105,40]],drones:[[1810,340,85,35],[3650,315,90,30],[4550,355,90,40],[5750,395,70,30]],speeds:{walk:78,fly:85},
  fish:[[280,540],[470,470],[760,390],[1030,430],[1280,340],[1530,420],[1780,350],[2050,430],[2300,330],[2570,420],[2840,500],[3120,540],[3400,400],[3650,330],[3900,420],[4170,340],[4420,420],[4680,330],[4930,420],[5200,340],[5450,430],[5700,500],[6070,540],[6200,500]],finish:rect(6230,440,120,160)};
 
@@ -888,6 +903,33 @@ function bolt(cx,cy,s=1,color='#fffdf7'){ctx.save();ctx.translate(cx,cy);ctx.sca
 function cloud(x,y,s=1,c='#fffdf1'){ctx.save();ctx.translate(x,y);ctx.scale(s,s);ellipse(0,0,60,22,c);ellipse(-25,-15,29,29,c);ellipse(17,-27,37,36,c);ellipse(52,-4,29,22,c);ctx.restore();}
 // A slab of an unfinished building: floors are read from the open window bands, nothing else is needed at this distance.
 function building(x,baseY,h,body,shade){rounded(x,baseY-h,150,h,4,body);ctx.fillStyle=shade;for(let fy=baseY-h+18;fy<baseY-16;fy+=34)ctx.fillRect(x+11,fy,128,15);}
+// A New York tower in one flat tone, shaded down its right side. Its crown is picked by `v`: a flat roof (with a
+// water tank when the row gives a tank colour), one setback with a spire, or the stepped "wedding cake". The far
+// row gets pinstripe mullions, the nearer rows a fixed pattern of lit windows, so nothing flickers as it scrolls.
+function tower(x,base,w,h,v,L){const top=Math.round(base-h);ctx.fillStyle=L.c;ctx.fillRect(x,top,w,h);
+ if(v%3===1){ctx.fillRect(x+w*.18,top-h*.14,w*.64,h*.14+1);ctx.fillRect(x+w*.34,top-h*.24,w*.32,h*.1+1);line([[x+w/2,top-h*.24],[x+w/2,top-h*.24-28]],L.c,3);}
+ else if(v%3===2){ctx.fillRect(x+w*.12,top-18,w*.76,19);ctx.fillRect(x+w*.26,top-34,w*.48,17);}
+ else if(L.c3)waterTank(x+w*.72,top,1,L.c3,L.c3);
+ ctx.fillStyle='#10203a1c';ctx.fillRect(x+w*.72,top,w*.28,h);ctx.fillStyle=L.c2;ctx.beginPath();
+ if(L.marks)for(let k=x+6;k<x+w-4;k+=9)ctx.rect(k,top+8,2,h-8);
+ else for(let y=top+12;y<base-10;y+=18)for(let k=6;k<w-8;k+=14)if((k*7+y*3+v*13)%9<3)ctx.rect(x+k,y,7,9);
+ ctx.fill();}
+// The wooden water tank on stilts that stands on half the roofs of Manhattan.
+function waterTank(x,y,s,body,roof){line([[x-9*s,y],[x-7*s,y-14*s]],roof,2);line([[x+9*s,y],[x+7*s,y-14*s]],roof,2);
+ rounded(x-11*s,y-35*s,22*s,22*s,3,body);line([[x-11*s,y-27*s],[x+11*s,y-27*s]],roof,1.5);line([[x-11*s,y-19*s],[x+11*s,y-19*s]],roof,1.5);
+ tri([x-13*s,y-34*s],[x,y-47*s],[x+13*s,y-34*s],roof);}
+// The two landmarks of the far row, drawn from their setbacks: `h` is the height of the roof line, not the mast.
+function empire(cx,base,h,c,c2){const u=h/360;ctx.fillStyle=c;
+ for(const [w,t] of [[128,80],[92,262],[70,300],[50,322],[34,340],[16,366]])ctx.fillRect(cx-w*u/2,base-t*u,w*u,t*u);
+ tri([cx-8*u,base-366*u],[cx,base-392*u],[cx+8*u,base-366*u],c);line([[cx,base-390*u],[cx,base-440*u]],c,2.5);
+ ctx.fillStyle=c2;for(let k=-40;k<=40;k+=8)ctx.fillRect(cx+k*u-1,base-258*u,2,178*u);}
+function chrysler(cx,base,h,c,c2){const u=h/360,top=base-270*u;ctx.fillStyle=c;
+ ctx.fillRect(cx-56*u,base-150*u,112*u,150*u);ctx.fillRect(cx-36*u,top,72*u,270*u);
+ // Five arches, each narrower and higher, with the bright rim of the crown on each, and the needle on top.
+ for(let k=0;k<5;k++){const r=(34-k*6)*u,y=top-k*13*u;ctx.fillStyle=c;ctx.beginPath();ctx.arc(cx,y,r,Math.PI,0);ctx.fill();
+  ctx.strokeStyle=c2;ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(cx,y,r-3*u,Math.PI*1.08,Math.PI*1.92);ctx.stroke();}
+ tri([cx-5*u,top-58*u],[cx,top-120*u],[cx+5*u,top-58*u],c);
+ ctx.fillStyle=c2;for(let k=-28;k<=28;k+=8)ctx.fillRect(cx+k*u-1,top+8,2,262*u);}
 // Tower crane: mast, jib, counter-jib and a hook on a cable. Two of them at different parallax depths sell the site.
 function crane(x,baseY,s=1,body='#e8a93c',light='#f5c25e'){ctx.save();ctx.translate(x,baseY);ctx.scale(s,s);
  rounded(-9,-330,18,330,3,body);for(let i=-322;i<-10;i+=26)line([[-9,i],[9,i+24]],light,3);
@@ -946,6 +988,9 @@ const LAYER={
  // A skyline: slabs with a scatter of lit windows picked by a fixed pattern, so they never flicker.
  skyline(L){each(L,(x,v)=>{const h=L.h*(.5+v%4*.17),w=L.step*.8;rounded(x,L.base-h,w,h,3,L.c);ctx.fillStyle=L.c2;
   for(let y=L.base-h+14;y<L.base-12;y+=22)for(let k=10;k<w-12;k+=20)if((k*7+y*3+v*11)%5<2)ctx.fillRect(x+k,y,8,10);});},
+ // Manhattan: a row of towers; on the far row two slots of every seven are the Empire State and the Chrysler.
+ nyc(L){each(L,(x,v)=>{const w=L.step*(.62+v%3*.1),h=L.h*(.55+((v*5)%7)*.075);
+  if(L.marks&&v===2)empire(x+L.step*.39,L.base,L.h*1.08,L.c,L.c2);else if(L.marks&&v===5)chrysler(x+L.step*.39,L.base,L.h*1.02,L.c,'#e9eef6');else tower(x,L.base,w,h,v,L);});},
  cranes(L){each(L,(x,v)=>{const s=L.s*(1+v%2*.15);crane(x,L.base,s,L.c,L.c2);if(L.lights&&Math.sin(elapsed*3+v)>0)ellipse(x,L.base-378*s,4,4,'#ff5a4d');});},
  scaffold(L){each(L,x=>scaffold(x,L.base,L.c));},
  // Posts: lamps, floodlights (with a beam) or bare poles.
@@ -1155,9 +1200,29 @@ function drawCloudSurface(s){const x=s.x,y=s.y,w=s.w,body=s.kind==='ground'?110:
  for(let i=0;i<n;i++)ellipse(x+step*(i+.5),y+body*.34,step*.6,body*.32,'#e2f0fc');
  for(let i=0;i<n;i++)ellipse(x+step*(i+.5),y+22,step*.55*(i%2?1:.88),22,'#f7fbff');
  rounded(x,y,w,18,9,'#ffffff');}
+// A web shelf is a load hanging off a tower crane: the crane's cable comes down from above the frame to a yellow
+// hook block, and two slings run from the hook to the load's corners. The load fills the shelf's own box exactly -
+// its top is what the cat stands on, its underside is where the web sticks - and `s.load` picks which of five it
+// is: a bundle of girders, a pallet of bricks, a concrete slab, a bundle of pipes or a site container.
+function drawLoad(s){const {x,y,w,h}=s,cx=x+w/2,k=s.load%5;
+ line([[cx,-20],[cx,y-64]],'#2f3a4a',2);rounded(cx-8,y-66,16,13,3,'#f0b429');ctx.fillStyle='#2f3a4a';ctx.fillRect(cx-8,y-58,16,2);
+ line([[cx,y-53],[cx,y-49]],'#3a4049',2.5);ctx.strokeStyle='#3a4049';ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(cx,y-45,4.5,-Math.PI*.5,Math.PI*1.1);ctx.stroke();
+ line([[x+12,y+1],[cx,y-41],[x+w-12,y+1]],'#3a4049',2);
+ if(k===0){for(let r=0;r<3;r++){const i=r%2*5,yy=y+r*9.5;rounded(x+i,yy,w-i*2,9,2,'#b5462f');ctx.fillStyle='#d2633f';ctx.fillRect(x+i+2,yy+1,w-i*2-4,2);ctx.fillStyle='#7a2e20';ctx.fillRect(x+i,yy+5,w-i*2,1.5);}
+  for(const q of [28,w-32])rounded(x+q,y-1,4,h+1,1,'#2b2f38');}
+ else if(k===1){rounded(x+4,y,w-8,21,2,'#e2d3c0');ctx.fillStyle='#b8583f';
+  for(let r=0;r<3;r++)for(let q=r%2?-9:0;q<w-8;q+=19){const a=Math.max(x+5,x+5+q),b=Math.min(x+w-5,x+q+22);if(b>a)ctx.fillRect(a,y+1+r*7,b-a,5.5);}
+  rounded(x,y+21,w,7,2,'#b58a57');ctx.fillStyle='#7d5a36';for(const q of [12,w/2-6,w-24])ctx.fillRect(x+q,y+24,12,4);line([[x+8,y+3],[x+w-34,y+3]],'#ffffff70',2);}
+ else if(k===2){rounded(x,y+3,w,h-3,3,'#9ea3a8');rounded(x,y,w,9,3,'#c8cbcf');ctx.fillStyle='#868b91';for(let q=10;q<w-6;q+=17)ctx.fillRect(x+q,y+14+q%3*3,2.5,2.5);
+  ctx.strokeStyle='#5d6268';ctx.lineWidth=2;for(const q of [12,w-12]){ctx.beginPath();ctx.arc(x+q,y,4,Math.PI,0);ctx.stroke();}}
+ else if(k===3){for(let r=0;r<3;r++){const yy=y+r*9.5;rounded(x,yy,w,9,4.5,'#4f86b8');ctx.fillStyle='#8cb8dd';ctx.fillRect(x+8,yy+2,w-14,1.5);ellipse(x+4.5,yy+4.5,4.5,4.5,'#34618c');ellipse(x+4.5,yy+4.5,2.2,2.2,'#1d3550');}
+  for(const q of [30,w-34])rounded(x+q,y-1,4,h+1,1,'#f0b429');}
+ else{rounded(x,y,w,h,2,'#2f6fa8');ctx.fillStyle='#255a8a';for(let q=x+9;q<x+w-8;q+=8)ctx.fillRect(q,y+5,3,h-10);
+  rounded(x,y,w,4,2,'#4a8bc6');rounded(x,y+h-4,w,4,2,'#244f78');ctx.fillStyle='#1d3550';for(const q of [x,x+w-7])for(const r of [y,y+h-6])ctx.fillRect(q,r,7,6);}}
 function drawPlatform(s){const x=s.x,t=zoneOf(s.x);if(t.cloudy){drawCloudSurface(s);return;}if(s.kind==='ground'){rounded(x,s.y,s.w,s.h,7,t.dirt);ctx.fillStyle=t.seam;ctx.fillRect(x,s.y+39,s.w,7);rounded(x,s.y,s.w,24,8,t.grass);rounded(x,s.y,s.w,9,5,t.grassTop);
  // The ground spans the whole world, so its decorations are stepped through only inside the camera window.
  const x0=Math.max(0,camera-x-60),x1=Math.min(s.w,camera-x+W+60);
+ if(t.facade)for(let i=24+Math.max(0,Math.ceil((x0-24)/64))*64;i<Math.min(x1,s.w-30);i+=64){rounded(x+i,s.y+60,26,36,2,(i/64|0)%3===1?'#ffd98a':'#2c3852');rounded(x+i-3,s.y+95,32,5,1,t.seam);}
  if(t.tiles){for(let i=Math.max(0,Math.floor(x0/80))*80;i<x1;i+=80){line([[x+i,s.y+9],[x+i,s.y+24]],t.seam,2);line([[x+i+40,s.y+24],[x+i+40,s.y+39]],t.seam,2);}for(let i=33+Math.max(0,Math.ceil((x0-33)/205))*205;i<x1;i+=205)t.plant(x+i,s.y-2,Math.floor(i/205));}
  else for(let i=18+Math.max(0,Math.ceil((x0-18)/42))*42;i<x1;i+=42){ellipse(x+i,s.y+24,9,9,t.tuft);ellipse(x+i+9,s.y+68+(i%3)*18,4,3,t.pebble);}for(let i=33+Math.max(0,Math.ceil((x0-33)/137))*137;i<x1;i+=137){t.plant(x+i,s.y-2,Math.floor(i/137));line([[x+i+31,s.y],[x+i+28,s.y-10],[x+i+34,s.y-4],[x+i+38,s.y-12]],t.sprig,2);}}
  // Lift: two cables to the sky for a vertical one, a trolley on a rail beam for a horizontal one.
@@ -1177,6 +1242,7 @@ function drawPlatform(s){const x=s.x,t=zoneOf(s.x);if(t.cloudy){drawCloudSurface
   if(s.state)for(const f of [.3,.7])line([[x+s.w*f,y],[x+s.w*(f+.06),y+12],[x+s.w*f,y+26]],ice?'#5d97b8':'#4a4640',2);
   ctx.restore();}
  // A shelf is a steel beam on the site and a plank walkway on the pier: same geometry, different palette.
+ else if(s.load!=null)drawLoad(s);
  else{rounded(x,s.y+3,s.w,s.h,9,t.ledge);rounded(x,s.y,s.w,13,7,t.ledgeTop);rounded(x+4,s.y,s.w-8,5,4,t.ledgeLip);for(let i=20;i<s.w;i+=44)line([[x+i,s.y+19],[x+i+15,s.y+19]],t.plank,3);}
  if(t.ice&&!(s.kind==='crumble'&&s.state===3)){const y=s.y+(s.drop||0);ctx.save();ctx.globalAlpha=.7;rounded(x+3,y,s.w-6,8,4,'#dff7ff');for(let q=x+20;q<x+s.w-10;q+=58)line([[q,y+3],[q+20,y+1]],'#8EDDFF',2);ctx.restore();}}
 function drawObstacle(o){const cx=o.x+o.w/2;
@@ -1710,7 +1776,7 @@ window.CAT_SPRITES={"idle":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAH4AAA
    for(let i=0;i<16;i++){const x=((i*173+elapsed*(5+i%3)-camera*.4)%(W+40)+W+40)%(W+40),y=180+(i*79)%370+Math.sin(elapsed*.7+i)*13;ellipse(x,y,1.5,1.5,'#fffce47a');}};}
   for(const t of new Set(LEVELS.map(L=>L.theme)))if(t.scene)t.bg=glowUp(t.bg,t.scene);
  const originalPlatform=drawPlatform;
- drawPlatform=function(s){ctx.save();if(!MOBILE){ctx.shadowColor='#112d4930';ctx.shadowBlur=12;ctx.shadowOffsetY=7;}originalPlatform(s);ctx.restore();if(s.kind==='platform'||s.kind==='lift'){for(let x=s.x+12;x<s.x+s.w-8;x+=48){ellipse(x,s.y+17,2.2,2.2,'#071f3d70');ellipse(x-.5,s.y+16,1,1,'#e0efff99');}}};
+ drawPlatform=function(s){ctx.save();if(!MOBILE){ctx.shadowColor='#112d4930';ctx.shadowBlur=12;ctx.shadowOffsetY=7;}originalPlatform(s);ctx.restore();if((s.kind==='platform'&&s.load==null)||s.kind==='lift'){for(let x=s.x+12;x<s.x+s.w-8;x+=48){ellipse(x,s.y+17,2.2,2.2,'#071f3d70');ellipse(x-.5,s.y+16,1,1,'#e0efff99');}}};
  const originalFish=fish;
  fish=function(x,y,s=1,a=0){ctx.save();if(!MOBILE){ctx.shadowColor='#ffd36a';ctx.shadowBlur=12+Math.sin(elapsed*4+x)*4;}originalFish(x,y,s,a);ctx.restore();if(s<1){const t=elapsed*2+x;line([[x+Math.cos(t)*25-3,y+Math.sin(t)*19],[x+Math.cos(t)*25+3,y+Math.sin(t)*19]],'#fff7d4b0',1.5);}};
  // A single master bus silences both current sounds and future scheduled notes.
