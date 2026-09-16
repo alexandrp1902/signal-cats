@@ -35,6 +35,8 @@ header,.footer{width:min(1280px,100%)}
 .choice.levels{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;max-width:600px;margin:0 auto 10px}
 .choice.levels .tile{position:relative;text-align:center;padding:7px 4px 6px;border-radius:14px;min-height:60px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;border-bottom-width:4px}
 .choice.levels .tile b{font-size:20px;line-height:1;color:#22364d}
+.choice.levels .tile b svg{width:1em;height:1em;margin-left:.16em;vertical-align:-.1em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.choice.levels .tile b svg.thin{stroke-width:1.35}
 .choice.levels .tile span{display:block;font-size:10px;font-weight:bold;letter-spacing:.3px;color:#52748b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 .choice.levels .tile i{display:block;font-size:8px;letter-spacing:1px;margin:0;color:#9fb3c4}
 .choice.levels .tile.done::after{content:'✓';position:absolute;top:3px;right:6px;font-size:12px;font-weight:900;color:#1fae62}
@@ -624,7 +626,15 @@ function nextLevel(){loadLevel(levelIndex+1);resume();unlockAudio();toast(`Ур�
 function restartLevel(){if(mode==='start')return;score=levelScore;loadLevel(levelIndex);resume();unlockAudio();}
 // START SCREEN — a grid of 20 tiles; the band (four levels each) gives the tile its colour and its difficulty dots.
 const cardEl=ui.overlay.querySelector('.card'),BAND_DOTS=['●○○○○','●●○○○','●●●○○','●●●●○','●●●●●'];
-function buildTiles(){const next=firstOpen();ui.choice.replaceChildren(...LEVELS.map((L,i)=>{const b=document.createElement('button'),band=Math.min(4,Math.floor(i/4)),best=progress[String(i+1)],special=L.movement==='swim'?' 🤿':L.movement==='flight'?' 🦸':L.movement==='web'?' 🕸️':'';
+// The three special routes are marked on their tile by a flat one-line icon drawn here instead of a system emoji:
+// a diving mask for the swim, a cape for the flight, a corner of web for the spider route. They are stroked in the
+// tile's own colour and sized in em, so they scale with the number beside them and look the same on every phone.
+const ICON=(d,cls='')=>`<svg class="${cls}" viewBox="0 0 16 16" aria-hidden="true">${d}</svg>`;
+const MODE_ICON={
+ swim:ICON('<circle cx="11.6" cy="3.4" r="1.5"/><path d="M1.6 8.4q1.6-1.8 3.2 0t3.2 0 3.2 0 3.2 0"/><path d="M1.6 12.4q1.6-1.8 3.2 0t3.2 0 3.2 0 3.2 0"/>'),
+ flight:ICON('<path d="M14 8 2.6 3.2 4.7 8 2.6 12.8Z"/>'),
+ web:ICON('<path d="M8 1.5v13M1.5 8h13M3.4 3.4 12.6 12.6M12.6 3.4 3.4 12.6"/><path d="M8 4.4 11.6 8 8 11.6 4.4 8Z"/>','thin')};
+function buildTiles(){const next=firstOpen();ui.choice.replaceChildren(...LEVELS.map((L,i)=>{const b=document.createElement('button'),band=Math.min(4,Math.floor(i/4)),best=progress[String(i+1)],special=MODE_ICON[L.movement]||'';
   b.className=`tile band-${band}${L.premium?' premium':''}${cleared(i)?' done':''}${i===next?' next':''}${isOpen(i)?'':' locked'}`;b.dataset.level=i;
   b.innerHTML=`<b>${i+1}${special}</b><span>${L.short}</span><i>${L.premium?'◆ PREMIUM ◆':BAND_DOTS[band]}</i>`;
   const info=`Уровень ${i+1}: ${L.name}. ${L.hint}${best?` Лучший результат: рыбки ${best.fish} / ${best.of}, время ${fmtTime(best.time)}.`:''}`;
