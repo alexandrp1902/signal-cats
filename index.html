@@ -36,8 +36,9 @@ header,.footer{width:min(1280px,100%)}
 .choice.levels .tile{position:relative;text-align:center;padding:7px 4px 6px;border-radius:14px;min-height:60px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;border-bottom-width:4px}
 .choice.levels .tile b{font-size:20px;line-height:1;color:#22364d}
 .choice.levels .tile b svg{width:1em;height:1em;margin-left:.16em;vertical-align:-.1em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.choice.levels .tile b svg.mark{fill:#e8574a;stroke:none}
-.choice.levels .tile b svg.mark text{font-family:inherit;font-size:15px;font-weight:800}
+/* The mark is drawn larger than the number beside it; its negative block margins keep it from stretching the line
+   box, which is what pushed the row out of the grid when it was first made bigger. */
+.choice.levels .tile b svg.mark{width:1.15em;height:1.09em;margin-left:.1em;margin-block:-.18em;vertical-align:-.08em;fill:#e8574a;stroke:none}
 .choice.levels .tile b svg.drop{fill:#35b6f2;stroke:none}
 .choice.levels .tile span{display:block;font-size:10px;font-weight:bold;letter-spacing:.3px;color:#52748b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 .choice.levels .tile i{display:block;font-size:8px;letter-spacing:1px;margin:0;color:#9fb3c4}
@@ -634,9 +635,11 @@ const cardEl=ui.overlay.querySelector('.card'),BAND_DOTS=['●○○○○','●
 const ICON=(d,cls='',vb='0 0 16 16')=>`<svg class="${cls}" viewBox="${vb}" aria-hidden="true">${d}</svg>`;
 const MODE_ICON={
  swim:ICON('<path d="M8 1.5c3.4 4 5.1 6.7 5.1 8.8a5.1 5.1 0 0 1-10.2 0c0-2.1 1.7-4.8 5.1-8.8Z"/>','drop'),
- // The SIGNAL S as a red letter: the real mark is drawn so thin that at 20 px it collapses into a red squiggle.
- flight:ICON('<text x="8" y="13.1" text-anchor="middle">S</text>','mark'),
- web:ICON('<path d="M2.2 2.2h11.6M2.2 2.2 10.6 10.6M2.2 2.2v11.6"/><path d="M7.2 2.2A5 5 0 0 1 2.2 7.2"/><path d="M12.6 2.2A10.4 10.4 0 0 1 2.2 12.6"/>')};
+ // The SIGNAL mark itself - the same two curves that sit on the blue cat's helmet, lifted from docs/S Logo white.svg
+ // and filled red instead of white.
+ flight:ICON('<path d="M89.4316 13.0529C88.8526 17.2195 88.6044 21.5463 88.6044 25.9532C88.6044 71.7853 120.868 103.595 184.981 121.383L202.933 126.031C210.792 128.114 216.335 129.396 219.561 130.678C222.788 131.559 226.924 132.761 231.06 134.524C239.83 137.889 242.146 142.617 242.146 148.065C242.146 158.241 231.557 163.369 210.792 163.369C182.665 163.369 163.307 150.629 152.718 125.63L73.8789 167.616C90.0107 213.448 138.406 242.294 208.476 242.294C220.306 242.294 231.391 241.492 241.815 239.89L0.5 310L89.4316 13.0529Z"/><path fill-rule="evenodd" clip-rule="evenodd" d="M250.019 41.4685C241.189 20.4502 226.363 9.65706 205.456 9.65706C189.213 9.65706 180.884 16.555 180.884 25.5628C180.884 31.9738 184.632 36.7618 191.546 40.1701C198.959 43.5785 212.869 47.8795 233.776 53.479C246.687 57.0497 252.517 58.5104 261.846 61.9999L327.233 0H326.733L250.019 41.4685Z"/>','mark','0 0 328 310'),
+ // The spider route keeps the system web emoji: both drawn versions read worse than it at tile size.
+ web:' 🕸️'};
 function buildTiles(){const next=firstOpen();ui.choice.replaceChildren(...LEVELS.map((L,i)=>{const b=document.createElement('button'),band=Math.min(4,Math.floor(i/4)),best=progress[String(i+1)],special=MODE_ICON[L.movement]||'';
   b.className=`tile band-${band}${L.premium?' premium':''}${cleared(i)?' done':''}${i===next?' next':''}${isOpen(i)?'':' locked'}`;b.dataset.level=i;
   b.innerHTML=`<b>${i+1}${special}</b><span>${L.short}</span><i>${L.premium?'◆ PREMIUM ◆':BAND_DOTS[band]}</i>`;
