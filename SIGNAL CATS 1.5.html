@@ -206,7 +206,7 @@ const MOUNTAIN=place({dirt:'#8e8478',seam:'#7a7064',grass:'#9aa38f',grassTop:'#b
 const QUARRY=place({dirt:'#c29a6a',seam:'#a9825a',grass:'#b89b78',grassTop:'#d2b690',tuft:'#a88a68',pebble:'#e0c49a',sprig:'#8f7458',plant:rockProp,robo:true,haze:['#3a2a1800','#4a362038','#2a1c10a8']},
  {sky:['#e6c79a','#f6e6cc'],sun:{x:1000,y:130,r:55,c:['#fff0c0','#fff7de']},fx:{k:'dust',n:20,c:'#e8d2ae90',vx:8,vy:6,r:2.4},layers:[
   {k:'peaks',base:600,h:220,step:600,par:.12,c:'#caa57a',c2:'#b88f64'},{k:'columns',base:600,h:200,step:560,par:.35,c:'#a8784e',c2:'#c79a6a'},{k:'scaffold',base:606,step:700,par:.55,c:'#8f7a66'}]});
-const WINTER=place({dirt:'#c9d9e6',seam:'#b4c7d6',grass:'#f2f8fc',grassTop:'#ffffff',tuft:'#dce9f2',pebble:'#aebfcc',sprig:'#8ea3b3',plant:firProp,ice:true,robo:true,flag:'#e8574a',haze:['#2a3a5000','#2a3a5038','#16203aa8'],
+const WINTER=place({scarf:true,dirt:'#c9d9e6',seam:'#b4c7d6',grass:'#f2f8fc',grassTop:'#ffffff',tuft:'#dce9f2',pebble:'#aebfcc',sprig:'#8ea3b3',plant:firProp,ice:true,robo:true,flag:'#e8574a',haze:['#2a3a5000','#2a3a5038','#16203aa8'],
  gull:['#5a6272','#6b7280','#e8584a','#5b6472','#1f2430','#2b2b2b']},
  {sky:['#b9dcf5','#eef7ff'],sun:{x:980,y:140,r:50,c:['#fff8e6','#ffffff']},clouds:true,fx:{k:'snow',n:40,c:'#ffffffd0',vx:6,vy:40,r:2.4},layers:[
   {k:'hills',base:560,h:110,step:460,par:.15,c:'#e2eef8'},{k:'pines',base:600,h:220,step:190,par:.35,c:'#4f7f6a',c2:'#5a4632',snow:'#f4f9ff'},{k:'snowmen',base:600,step:900,off:300,par:.6},{k:'posts',base:600,h:120,step:450,par:.6,c:'#5a6b7d',c2:'#ffe9a8'}]});
@@ -263,7 +263,7 @@ const MANHATTAN=place({tint:'#FFFFFF99',tiles:true,facade:true,plant:roofProp,di
   {k:'nyc',base:H,h:380,step:190,par:.07,c:'#a9bad2',c2:'#bccbdf',marks:true},
   {k:'nyc',base:H,h:330,step:160,off:60,par:.2,c:'#71869f',c2:'#ffe6a8',c3:'#5d6e86'},
   {k:'nyc',base:H,h:250,step:230,off:30,par:.4,c:'#44526b',c2:'#ffd27a',c3:'#6a5a52'}]});
-const POLAR=place({tint:'#10253866',dirt:'#c9d9e6',seam:'#b4c7d6',grass:'#eef6fb',grassTop:'#ffffff',tuft:'#dce9f2',pebble:'#aebfcc',sprig:'#8ea3b3',plant:rockProp,ice:true,robo:true,drone:true,flag:'#ff8a4c',haze:['#0a1a3000','#0a1a3048','#050e20b8']},
+const POLAR=place({scarf:true,tint:'#10253866',dirt:'#c9d9e6',seam:'#b4c7d6',grass:'#eef6fb',grassTop:'#ffffff',tuft:'#dce9f2',pebble:'#aebfcc',sprig:'#8ea3b3',plant:rockProp,ice:true,robo:true,drone:true,flag:'#ff8a4c',haze:['#0a1a3000','#0a1a3048','#050e20b8']},
  {sky:['#3e5a8f','#4f78a6','#86b5d0'],stars:30,fx:{k:'snow',n:30,c:'#ffffffc0',vx:14,vy:34,r:2.2},layers:[
   {k:'aurora',base:180,pal:['#5dffb040','#8a7dff30']},{k:'peaks',base:560,h:170,step:420,par:.15,c:'#dff1fb',c2:'#b5d9ee'},{k:'domes',base:600,h:70,step:620,par:.4,c:'#e8eef3',c2:'#9aa9b6'}]});
 const OBSERVATORY=place({tint:'#20152F66',dirt:'#7a6a80',seam:'#665870',grass:'#9a8aa6',grassTop:'#b8a8c4',tuft:'#8a7a96',pebble:'#a898b4',sprig:'#6a5a76',plant:rockProp,robo:true,drone:true,flag:'#ffd34d',haze:['#1a102a00','#1a102a48','#0c0618b8']},
@@ -497,7 +497,7 @@ const LEVELS=[
  COURSES[20]];
 
 // 1.4 SPECIAL ROUTES — these replace Quarry (7), Metro (13) and Volcano (17).
-const SWIM_LEVEL={name:'ПОДВОДНЫЙ КАРЬЕР',short:'ПОДВОДНЫЙ',movement:'swim',theme:AQUARIUM,spawn:{x:120,y:360},praise:'ПОДВОДНЫЙ МАРШРУТ ПРОЙДЕН!',hint:'Плавай во всех направлениях, кнопка FAST — рывок. Обходи акул и электрических скатов.',sign:'ПОД ВОДУ',checks:[],decor:[],platforms:[],obstacles:[],
+const SWIM_LEVEL={name:'ПОДВОДНЫЙ КАРЬЕР',short:'ПОДВОДНЫЙ',movement:'swim',theme:AQUARIUM,spawn:{x:120,y:360},praise:'ПОДВОДНЫЙ МАРШРУТ ПРОЙДЕН!',hint:'Плавай во всех направлениях, кнопка FAST — рывок. Обходи акул, электрических скатов и медуз у поверхности.',sign:'ПОД ВОДУ',checks:[],decor:[],platforms:[],obstacles:[],
  fish:[[260,250],[430,190],[590,330],[760,470],[940,300],[1120,160],[1290,390],[1480,520],[1660,280],[1840,150],[2020,430],[2200,300],[2400,500],[2580,180],[2770,350],[2960,500],[3150,240],[3340,120],[3520,410],[3720,530],[3920,260],[4120,150],[4320,390],[4520,520],[4720,250],[4920,130],[5120,420],[5320,530],[5520,300],[5720,160],[5940,350],[6100,250]],
  sharks:[[820,210,170,3.2],[1750,430,210,4.1],[2860,190,190,3.5],[4050,430,230,4.7],[5350,220,190,3.8]],rays:[[1280,360,120,70,0],[2350,320,130,80,1.7],[3500,300,140,90,3.1],[4720,350,130,70,4.4],[5800,420,100,65,2.2]],finish:rect(6230,245,120,190)};
 
@@ -514,6 +514,15 @@ const mast=(x,top)=>Object.assign(rect(x-22,top,44,H-top+40),{k:'mast'});
 SWIM_LEVEL.blockers=[[600,210],[980,250],[1300,200],[1660,270],[2000,220],[2260,260],[2620,230],[3080,270],
  [3400,210],[3860,250],[4180,220],[4640,260],[4980,230],[5460,270],[5900,220],[6120,190]].map(a=>kelpWall(...a));
 FLIGHT_LEVEL.blockers=[[900,470],[1700,430],[2320,500],[3050,440],[3450,490],[4400,430],[4980,500],[5750,450],[6050,480]].map(a=>mast(...a));
+// JELLYFISH (1.5) - the kelp closed the floor of the frame, but the surface stayed a free lane: no shark or ray
+// reaches above y=167, so a cat pressed to the top edge crossed the whole level without meeting anything. Jellyfish
+// now bob under the surface, from y=96 down to 206 and back. A single one leaves the lane open half of each cycle; a
+// pair 90 px apart beats in opposite phase, so one of the two is always up there - too close to wait between - and
+// the cat has to dip into open water to pass. None hangs where a shark patrols high, so a jelly never pins the cat
+// against a shark. [x, phase, period].
+const JELLY={top:96,depth:110};
+SWIM_LEVEL.jellies=[[420,0,3.8],[1480,.6,4.2],[1570,.6+Math.PI,4.2],[2080,2.1,3.6],[3180,1.2,4],[3270,1.2+Math.PI,4],[3700,4,3.9],
+ [4150,.3,4.4],[4240,.3+Math.PI,4.4],[4520,2.7,3.7],[4950,1.9,4.1],[5040,1.9+Math.PI,4.1],[5650,.9,3.8],[6000,3.3,4],[6090,3.3+Math.PI,4]];
 const webAnchors=[[800,245],[1480,200],[2150,235],[2820,200],[3490,220],[4170,190],[4850,235],[5520,210],[5940,245]];
 const WEB_LEVEL={name:'КОТ-ПАУК НАД МАНХЭТТЕНОМ',short:'КОТ-ПАУК',movement:'web',theme:MANHATTAN,spawn:{x:120,y:600},praise:'ПАУТИНА ВЫДЕРЖАЛА!',hint:'SHOT / пробел / ↓ — паутина и отпускание. ↑ / W / стик вверх — прыжок.',checks:[{at:3140,x:3090,y:600}],decor:[{k:'sign',x:205,text:'ЦЕПЛЯЙСЯ →'},{k:'flag',x:3087}],
  platforms:[ground(0,570),ground(3000,240),ground(6050,350),...webAnchors.map(([x,y],i)=>Object.assign(ledge(x-60,y,120),{web:true,load:i}))],obstacles:[],webAnchors,
@@ -856,6 +865,11 @@ function rayAt(r){const [x,y,rx,ry,phase]=r,charge=(elapsed+phase)%4,
   wind=charge>1.6&&charge<=2.35,live=charge>2.35&&charge<3.35,fade=charge>=3.35&&charge<3.7;
  return {px:x+Math.sin(elapsed*.85+phase)*rx,py:y+Math.sin(elapsed*1.15+phase)*ry,phase,charge,live,wind,
   glow:wind?(charge-1.6)/.75*.75:live?1:fade?1-(charge-3.35)/.35:0};}
+// A jelly sits at the top of its bob at phase 0 and sinks on a cosine; it drifts a little sideways and its bell beats
+// on its own clock. The box is the bell and the top of the tentacles - the trailing ends are drawn outside it.
+function jellyAt(q){const [x,phase,period]=q,w=elapsed/period*Math.PI*2+phase;
+ return {px:x+Math.sin(elapsed*.7+phase)*9,py:JELLY.top+JELLY.depth*(.5-.5*Math.cos(w)),phase,beat:Math.sin(elapsed*5+phase)};}
+function jellyBox(a){return rect(a.px-20,a.py-16,40,44);}
 // The swimming cat is drawn 92 px wide but collides as the 52x64 box every other system uses, so nose and tail are
 // pure decoration. Against a shark — itself drawn wider than its box — the two sprites could visibly overlap with no
 // hit at all. Sharks and rays are therefore tested against a box that follows the picture. p.w/p.h stay as they are:
@@ -866,6 +880,7 @@ function hitSpecialHazards(){const p=player;
   const b=swimBody(p);
   for(const s of level.sharks||[]){const a=sharkAt(s),h=rect(a.px-a.hw,a.y-23,a.hw*2,45);if(overlaps(b,h)&&p.invincible<=0){loseLife();return true;}}
   for(const r of level.rays||[]){const a=rayAt(r),h=rect(a.px-RAY_BOX.w,a.py-RAY_BOX.h,RAY_BOX.w*2,RAY_BOX.h*2);if(overlaps(b,h)&&a.live&&p.invincible<=0){loseLife();return true;}}
+  for(const q of level.jellies||[])if(overlaps(b,jellyBox(jellyAt(q)))&&p.invincible<=0){loseLife();return true;}
  }else if(movement()==='flight')for(const h of level.airHazards||[]){if(overlaps(p,movingHazard(h))&&p.invincible<=0){loseLife();return true;}}
  return false;}
 // PARTICLES / FISH
@@ -1474,6 +1489,23 @@ function drawRay(a){const f=Math.sin(elapsed*2.4+a.phase)*5,g=a.glow;
     ctx.stroke();}}
   ctx.globalAlpha=1;}
  ctx.restore();}
+// A jellyfish: a pink bell with a frilled rim that squeezes on each beat, six tentacles and two frilly arms waving
+// under it. Pink, so it reads apart from the gold fish and the teal ray.
+let jellyGel=null;
+function drawJelly(a){const bw=23+a.beat*2,bh=20-a.beat*2.5;
+ if(!jellyGel){jellyGel=ctx.createLinearGradient(0,-24,0,8);jellyGel.addColorStop(0,'#ffd0ec');jellyGel.addColorStop(.55,'#ff92d0');jellyGel.addColorStop(1,'#e56bbd');}
+ ctx.save();ctx.translate(a.px,a.py);ctx.lineCap='round';ctx.lineJoin='round';
+ for(let k=0;k<6;k++){const x0=-15+k*6,len=34+(k*7)%13;ctx.beginPath();ctx.moveTo(x0,4);
+  for(let i=1;i<=6;i++){const t=i/6;ctx.lineTo(x0*(1-t*.25)+Math.sin(elapsed*3.2+a.phase+k*1.4-t*4.5)*4.5*t,4+len*t);}
+  ctx.strokeStyle=k%2?'#ffa6d8b8':'#f27fcab8';ctx.lineWidth=2;ctx.stroke();}
+ for(const d of [-1,1]){ctx.beginPath();ctx.moveTo(d*4,4);for(let i=1;i<=5;i++){const t=i/5;ctx.lineTo(d*4+Math.sin(elapsed*2.6+a.phase+d-t*3.5)*6*t,4+26*t);}ctx.strokeStyle='#ff9ad3d8';ctx.lineWidth=5;ctx.stroke();}
+ ctx.beginPath();ctx.moveTo(-bw,4);ctx.bezierCurveTo(-bw,-bh*1.3,bw,-bh*1.3,bw,4);
+ for(let k=1;k<=5;k++){const x1=bw-k*bw*.4;ctx.quadraticCurveTo(x1+bw*.2,9,x1,4);}
+ ctx.closePath();ctx.globalAlpha=.94;ctx.fillStyle=jellyGel;ctx.fill();ctx.globalAlpha=1;ctx.strokeStyle='#b8479a';ctx.lineWidth=1.6;ctx.stroke();
+ ellipse(-bw*.4,-bh*.55,bw*.22,bh*.18,'#ffffffa8',-.5);
+ ellipse(-7,-4,2.2,2.7,'#5a1f4e');ellipse(7,-4,2.2,2.7,'#5a1f4e');ellipse(-6.3,-5,.8,.8,'#ffffff');ellipse(7.7,-5,.8,.8,'#ffffff');
+ ctx.beginPath();ctx.arc(0,-1,3,.15*Math.PI,.85*Math.PI);ctx.strokeStyle='#5a1f4e';ctx.lineWidth=1.2;ctx.stroke();
+ ctx.restore();}
 // A stalk of kelp: five fronds off one root, leaning on a slow sway. The hitbox is the narrow middle of them.
 function drawKelp(b){const x=b.x+b.w/2,top=b.y,h=H+30-top,sway=Math.sin(elapsed*1.1+x*.013);
  for(const [dx,k,c,l] of [[-25,.72,'#1a5f47','#236f53'],[24,.78,'#1d6b51','#27835f'],[-12,.9,'#24795c','#2f9068'],[13,.94,'#27835f','#35a173'],[0,1,'#2f9068','#3cb07e']]){const pts=[];
@@ -1497,6 +1529,7 @@ function drawSpecialHazards(){const nearL=camera-70,nearR=camera+W+70;
   for(let i=i0;i<i1;i++){const x=i*97+Math.sin(elapsed*.8+i)*12,y=H-((i*83+elapsed*(18+i%5*5))%H),r=2+i%4;ctx.moveTo(x+r,y);ctx.arc(x,y,r,0,Math.PI*2);}
   ctx.stroke();
   const lo=camera-160,hi=camera+W+160;
+  for(const q of level.jellies||[]){const a=jellyAt(q);if(a.px>lo&&a.px<hi)drawJelly(a);}
   for(const s of level.sharks||[]){const a=sharkAt(s);if(a.px>lo&&a.px<hi)drawShark(a);}
   for(const r of level.rays||[]){const a=rayAt(r);if(a.px>lo&&a.px<hi)drawRay(a);}
  }else if(movement()==='flight')for(const h of level.airHazards||[]){const r=movingHazard(h),cx=r.x+r.w/2;line([[cx,0],[cx,r.y]],'#27384a',4);rounded(r.x,r.y,r.w,r.h,7,'#6d7782');rounded(r.x+7,r.y+7,r.w-14,10,4,'#aeb8c1');for(let y=r.y+28;y<r.y+r.h-8;y+=34)line([[r.x+10,y],[r.x+r.w-10,y]],'#4f5964',3);drawSMark(cx,r.y+r.h/2,Math.min(38,r.w*.38),'white');}}
@@ -1733,6 +1766,39 @@ window.CAT_SPRITES={"idle":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAH4AAA
   ctx.beginPath();ctx.moveTo(...left[0]);for(let i=1;i<left.length;i++){const p=left[i],q=left[Math.min(i+1,left.length-1)];ctx.quadraticCurveTo(...p,(p[0]+q[0])/2,(p[1]+q[1])/2);}ctx.strokeStyle='#59d3ff88';ctx.lineWidth=.8;ctx.stroke();
   ctx.restore();
  }
+ // WINTER SCARF (1.5) - on the two snow levels (themes with `scarf`) the cape comes off and a blue knitted scarf goes
+ // on: a straight, level band across the neck with white knit stripes - no knot, it reads as being behind the head -
+ // plus two striped, fringed ends that stream
+ // behind the cat on the cape's own wind - the same angle, flow, fall and phase - so they lift in a run and flap on a
+ // fall. The neck sits a little differently in each pose: NECK is its offset from the standing pose, blended across a
+ // pose change the same way the sprites are.
+ const SCARF={wool:'#58c6ff',knit:'#eef9ff',edge:'#0d3f6b'},NECK={0:[-1.2,0],1:[-3.8,0],2:[2.3,8],3:[-2.7,1.7],6:[-1.4,-2.3]}; // each pose's own chin: measured centre of the bottom edge of the face, so the band never drifts ahead of the muzzle in a run or a forward jump
+ function neckOffset(a,win){if(win)return NECK[2];const m=ease(a.blend),p=NECK[a.pose]||NECK[0],q=NECK[a.previousPose]||NECK[0];return [smooth(q[0],p[0],m),smooth(q[1],p[1],m)];}
+ function drawScarfEnds(a,[ox,oy]){ctx.save();ctx.lineCap='round';ctx.lineJoin='round';
+  // The shorter end first, hanging a little lower, so the long one lies over it.
+  for(const k of [1,0]){
+   const angle=a.capeAngle-k*.3,tx=Math.cos(angle),ty=Math.sin(angle),nx=-ty,ny=tx,N=16;
+   const length=(27+a.capeFlow*13+a.capeFall*7)*(k?.74:1),amplitude=1+a.capeFlow*3.4+a.capeFall*2.2,half=k?3.1:3.6,left=[],right=[];
+   for(let i=0;i<=N;i++){const t=i/N,wave=Math.sin(a.capePhase-k*1.3-t*7)*amplitude*t*t;
+    const x=ox-11+tx*length*t+nx*wave,y=oy-36+k*1.5+ty*length*t+ny*wave,h=half*(1+t*.12);
+    left.push([x+nx*h,y+ny*h]);right.push([x-nx*h,y-ny*h]);}
+   const outline=()=>{ctx.beginPath();ctx.moveTo(...left[0]);for(const q of left.slice(1))ctx.lineTo(...q);for(const q of right.slice().reverse())ctx.lineTo(...q);ctx.closePath();};
+   // Tassels off the free end, trailing the way the end points.
+   const e0=left[N],e1=right[N],dx=left[N][0]-left[N-1][0],dy=left[N][1]-left[N-1][1],dl=Math.hypot(dx,dy)||1;
+   ctx.strokeStyle=SCARF.wool;ctx.lineWidth=1.5;
+   for(let f=0;f<4;f++){const u=(f+.5)/4,sx=e0[0]+(e1[0]-e0[0])*u,sy=e0[1]+(e1[1]-e0[1])*u,wig=Math.sin(a.capePhase*1.7+f*2)*.9;
+    ctx.beginPath();ctx.moveTo(sx,sy);ctx.lineTo(sx+dx/dl*4.5-dy/dl*wig,sy+dy/dl*4.5+dx/dl*wig);ctx.stroke();}
+   outline();ctx.fillStyle=SCARF.wool;ctx.fill();
+   ctx.fillStyle=SCARF.knit;
+   for(const [i0,i1] of [[6,7],[10,11],[14,15]]){ctx.beginPath();ctx.moveTo(...left[i0]);ctx.lineTo(...left[i1]);ctx.lineTo(...right[i1]);ctx.lineTo(...right[i0]);ctx.closePath();ctx.fill();}
+   outline();ctx.strokeStyle=SCARF.edge;ctx.lineWidth=1.1;ctx.stroke();}
+  ctx.restore();}
+ function drawScarfWrap([ox,oy]){ctx.save();ctx.lineCap='round';
+  const band=()=>{ctx.beginPath();ctx.moveTo(ox-6,oy-35.8);ctx.quadraticCurveTo(ox+1,oy-35.8,ox+8,oy-35.8);};
+  band();ctx.strokeStyle=SCARF.edge;ctx.lineWidth=9.2;ctx.stroke();
+  band();ctx.strokeStyle=SCARF.wool;ctx.lineWidth=7;ctx.stroke();
+  band();ctx.lineCap='butt';ctx.setLineDash([2.2,5.5]);ctx.lineDashOffset=-3;ctx.strokeStyle=SCARF.knit;ctx.stroke();ctx.setLineDash([]);
+  ctx.restore();}
  drawPlayer=function(x,y,scale=1){
   if(!sprites[6])return;
   const a=motion(),air=!player.grounded,running=a.speed>.1&&!air,win=mode==='won'||mode==='done';
@@ -1748,7 +1814,8 @@ window.CAT_SPRITES={"idle":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAH4AAA
   ctx.rotate(tilt);ctx.translate(0,bob+takeoff*2);
   if(player.invincible>0&&mode==='playing')ctx.globalAlpha=.65+.35*Math.sin(elapsed*20)**2;
   ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';
-  drawCape(a);
+  const scarf=theme.scarf&&neckOffset(a,win);
+  if(scarf)drawScarfEnds(a,scarf);else drawCape(a);
   // Feet stay anchored across poses; the left-hand cape is outside that anchor.
   function paintPose(pose,opacity){ctx.save();ctx.globalAlpha*=opacity;
    if(pose===1){const frame=runFrames[Math.floor(a.stride/(Math.PI*2)*runFrames.length)%runFrames.length];ctx.drawImage(frame,-frame.width/4,-88,frame.width/2,88);}
@@ -1756,6 +1823,7 @@ window.CAT_SPRITES={"idle":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAH4AAA
   }
   if(win)paintPose(2,1);
   else{const mix=ease(a.blend);if(mix<1)paintPose(a.previousPose,1-mix);paintPose(a.pose,mix);}
+  if(scarf)drawScarfWrap(scarf);
   ctx.restore();
  };
  // Warm light, drifting clouds and tiny dust motes add depth without obscuring jumps.
