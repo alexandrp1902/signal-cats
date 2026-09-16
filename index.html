@@ -294,10 +294,10 @@ const MR_PREMIUM={...SITE,tint:VEIL,premium:'MR GROUP',bg:drawMrPremium,plant:co
 // 17–20 <= 190 / 140; a jump off or onto a crumbling plank stays 20 px under its band.
 const FAST={walk:84,fly:108},FASTER={walk:90,fly:112};
 const COURSES={
- 3:course({name:'НОВЫЙ ПАРК',short:'ПАРК',hint:'Две ямы и три жука на дорожках парка.',theme:PARK,praise:'ПАРК ГОТОВ К ОТКРЫТИЮ!',sign:'В ПАРК →'},[
+ 3:course({name:'НОВЫЙ ПАРК',short:'ПАРК',hint:'Две ямы и два жука на дорожках парка.',theme:PARK,praise:'ПАРК ГОТОВ К ОТКРЫТИЮ!',sign:'В ПАРК →'},[
   ['F',0,1500],['o',950,'crate'],['c',1250,80],['U',400,500,200],['U',680,400,180],
-  ['F',120,1400],['K',900],['o',450,'barrel'],['c',700,90],['U',200,500,220],
-  ['F',120,'rest'],['o',500,'cone'],['o',1500,'pipe'],['c',1000,100],['U',700,500,220],['U',1000,400,200],['U',2200,500,220],['U',2500,400,200]]),
+  ['F',100,1400],['K',900],['o',450,'barrel'],['c',700,90],['U',200,500,220],
+  ['F',120,'rest'],['o',500,'cone'],['o',1500,'pipe'],['U',700,500,220],['U',1000,400,200],['U',2200,500,220],['U',2500,400,200]]),
  4:course({name:'ФЕРМА',short:'ФЕРМА',hint:'Три ямы, жуки и полки до третьего этажа.',theme:FARM,praise:'ФЕРМЕР ГОВОРИТ СПАСИБО!',sign:'НА ФЕРМУ →'},[
   ['F',0,1300],['o',880,'crate'],['c',1150,60],['U',330,500,200],['U',610,400,170],
   ['F',130,1200],['c',500,100],['U',250,500,200],['U',530,400,180],['U',810,300,160],
@@ -497,7 +497,7 @@ const LEVELS=[
  COURSES[20]];
 
 // 1.4 SPECIAL ROUTES — these replace Quarry (7), Metro (13) and Volcano (17).
-const SWIM_LEVEL={name:'ПОДВОДНЫЙ КАРЬЕР',short:'ПОДВОДНЫЙ',movement:'swim',theme:AQUARIUM,spawn:{x:120,y:360},praise:'ПОДВОДНЫЙ МАРШРУТ ПРОЙДЕН!',hint:'Плавай во всех направлениях, кнопка FAST — рывок. Обходи акул, электрических скатов и медуз у поверхности.',sign:'ПОД ВОДУ',checks:[],decor:[],platforms:[],obstacles:[],
+const SWIM_LEVEL={name:'ПОДВОДНЫЙ',short:'ПОДВОДНЫЙ',movement:'swim',theme:AQUARIUM,spawn:{x:120,y:360},praise:'ПОДВОДНЫЙ МАРШРУТ ПРОЙДЕН!',hint:'Плавай во всех направлениях, кнопка FAST — рывок. Обходи акул, электрических скатов и медуз у поверхности.',sign:'ПОД ВОДУ',checks:[],decor:[],platforms:[],obstacles:[],
  fish:[[260,250],[430,190],[590,330],[760,470],[940,300],[1120,160],[1290,390],[1480,520],[1660,280],[1840,150],[2020,430],[2200,300],[2400,500],[2580,180],[2770,350],[2960,500],[3150,240],[3340,120],[3520,410],[3720,530],[3920,260],[4120,150],[4320,390],[4520,520],[4720,250],[4920,130],[5120,420],[5320,530],[5520,300],[5720,160],[5940,350],[6100,250]],
  sharks:[[820,210,170,3.2],[1750,430,210,4.1],[2860,190,190,3.5],[4050,430,230,4.7],[5350,220,190,3.8]],rays:[[1280,360,120,70,0],[2350,320,130,80,1.7],[3500,300,140,90,3.1],[4720,350,130,70,4.4],[5800,420,100,65,2.2]],finish:rect(6230,245,120,190)};
 
@@ -572,6 +572,14 @@ LEVELS.push({name:'СТРОЙПЛОЩАДКА MR GROUP',short:'MR GROUP',premium
  platforms:[ground(0,420),ground(2960,300),ground(6230,300),ground(7820,180),ledge(555,500,110),ledge(845,500,100),ledge(1080,400,110),ledge(1375,400,100),ledge(1610,300,110),ledge(1895,300,100),ledge(2130,200,110),ledge(2425,200,100),ledge(2705,300,110),crumble(3395,500,110),ledge(3680,500,100),crumble(3915,400,110),crumble(4200,400,100),ledge(4435,300,110),ledge(4730,300,100),crumble(4965,200,110),ledge(5250,200,100),lift(5530,300,110,0,100,4,-Math.PI/2),lift(5900,400,110,100,0,5,-Math.PI/2),
   // 1.4: a second tower shell past the rest island, and one last basket that ferries you onto the finish slab.
   crumble(6710,500,110),ledge(6995,500,100),crumble(7230,400,110),ledge(7515,400,100),lift(7700,400,110,90,0,5,-Math.PI/2)],obstacles:[rect(330,550,56,50,'crate'),rect(3210,548,58,52,'barrel'),rect(6300,550,50,50,'crate')],robots:[[1945,300,28],[3170,600,18],[2760,300,28],[6380,600,60]],crabs:[[895,500,28],[1425,400,28],[2475,200,28],[3730,500,28],[4490,300,28],[4780,300,28],[7045,500,28],[7565,400,28]],gulls:[[755,480,60,22],[1805,280,70,22],[4112,380,60,22],[4370,380,50,22],[5440,280,70,22],[6170,400,50,22],[6620,480,70,22],[7160,440,60,22]],drones:[[1010,400,50,22],[2335,180,70,22],[2615,280,60,22],[3590,480,60,22],[5160,180,60,22],[5720,380,60,22],[6905,480,60,22],[7430,380,60,22]],finish:rect(7860,440,120,160)});
+// LEVEL ORDER (1.5) - the twenty standard levels run from easiest to hardest by the measured difficulty index
+// (see "SIGNAL CATS 1.5 — индекс сложности.md"). The tile colour and the difficulty dots are read off the position
+// in this list, so they follow it by themselves. The two premium routes stay at the end, as they were.
+const ORDER=['СТРОЙКА','ПРИЧАЛ','ПАРК','ФЕРМА','ЛЕСОПИЛКА','ПОРТ','ГОРЫ','ЗИМА','ЗАВОД','ПУСТЫНЯ','ОБЛАКА','ВЫСОТКА','МОСТ','НОЧЬ','СУПЕРКОТ','ТЕЛЕСКОП','ПОЛЮС','КОСМОДРОМ','КОТ-ПАУК','ПОДВОДНЫЙ'];
+// A level missing from the list would sort to the front; it goes to the end of the standard run instead. The sort is
+// stable, so the two premium routes keep their own order.
+const levelRank=L=>L.premium?1e3:(ORDER.indexOf(L.short)+1||999);
+LEVELS.sort((a,b)=>levelRank(a)-levelRank(b));
 // ACTIVE LEVEL — rebound by loadLevel(); the names below are the ones the rest of the file already uses.
 let levelIndex=0,level=LEVELS[0],theme=level.theme,platforms=level.platforms,obstacles=level.obstacles,solids=[...platforms,...obstacles],fishSeeds=level.fish,finish=level.finish;
 // GAME STATE / PLAYER
@@ -599,7 +607,7 @@ function loadLevel(i){levelIndex=i;level=LEVELS[i];theme=level.theme;platforms=l
  ui.edition.textContent=`УРОВЕНЬ ${i+1} ИЗ ${LEVELS.length} · ${level.name}`;ui.tagline.textContent=level.hint;updateHUD();}
 // PROGRESS (1.2) — cleared levels with their best fish and best time, kept in this browser only. Storage can be missing
 // or throw (private mode, a sandboxed frame, file:// in WebKit), so every access is guarded and the game works without it.
-const UNLOCK_ALL=!/[?&]unlock=0/.test(location.search),STORE='signal-cats-1.2';
+const UNLOCK_ALL=!/[?&]unlock=0/.test(location.search),STORE='signal-cats-1.5';
 let progress={};
 try{progress=JSON.parse(window.localStorage.getItem(STORE)||'{}').levels||{};}catch{progress={};}
 function saveProgress(){try{window.localStorage.setItem(STORE,JSON.stringify({v:1,levels:progress}));}catch{}}
